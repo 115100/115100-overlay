@@ -6,11 +6,11 @@ EAPI=5
 
 inherit eutils linux-info linux-mod git-r3
 
-DESCRIPTION="Extensible Virtual Display Interface. Modified from maggu2810's ebuild for Linux 4.7 kernels."
+DESCRIPTION="Extensible Virtual Display Interface. Modified from maggu2810's ebuild for Linux 4.7/8 kernels."
 HOMEPAGE="https://github.com/DisplayLink/evdi"
 #SRC_URI="ftp://foo.example.org/${P}.tar.gz"
 EGIT_REPO_URI="git://github.com/DisplayLink/evdi.git"
-EGIT_COMMIT="79749791d6faecaae050caff7d3b832ce98b1bee"
+EGIT_COMMIT="5a680407d397d6a9a2adca8fa8d90936b4aec163"
 
 LICENSE="GPL-2"
 
