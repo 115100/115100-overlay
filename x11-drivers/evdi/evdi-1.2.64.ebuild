@@ -8,9 +8,8 @@ inherit eutils linux-info linux-mod git-r3
 
 DESCRIPTION="Extensible Virtual Display Interface. Modified from maggu2810's ebuild for Linux 4.7/8 kernels."
 HOMEPAGE="https://github.com/DisplayLink/evdi"
-#SRC_URI="ftp://foo.example.org/${P}.tar.gz"
 EGIT_REPO_URI="git://github.com/DisplayLink/evdi.git"
-EGIT_COMMIT="5a680407d397d6a9a2adca8fa8d90936b4aec163"
+EGIT_COMMIT="b79e5e9b84623a97e028670683965ab7dc653bd3"
 
 LICENSE="GPL-2"
 
