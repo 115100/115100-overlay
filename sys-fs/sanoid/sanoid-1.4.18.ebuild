@@ -1,6 +1,6 @@
 EAPI=7
 
-DESCRIPTION="Policy-driven snapshot management and replication tools. Currently using ZFS for underlying next-gen storage, with explicit plans to support btrfs when btrfs becomes more reliable. Primarily intended for Linux, but BSD use is supported and reasonably frequently tested. http://www.openoid.net/products/"
+DESCRIPTION="Policy-driven snapshot management and replication tools. Currently using ZFS for underlying next-gen storage, with explicit plans to support btrfs when btrfs becomes more reliable. Primarily intended for Linux, but BSD use is supported and reasonably frequently tested."
 HOMEPAGE="https://github.com/jimsalterjrs/sanoid"
 SRC_URI="https://github.com/jimsalterjrs/sanoid/archive/v${PV}.zip"
 
