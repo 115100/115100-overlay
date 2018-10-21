@@ -17,7 +17,9 @@ IUSE="
 	-pv
 	-zstd
 "
-DEPEND=""
+DEPEND="
+	dev-lang/perl
+"
 RDEPEND="
 	dev-lang/perl
 	dev-perl/Config-IniFiles
@@ -32,9 +34,16 @@ RDEPEND="
 	zstd?    ( app-arch/zstd )
 "
 
+src_compile() {
+	perldoc -oman -dsanoid.1 sanoid || die "Failed to compile sanoid.1!"
+	perldoc -oman -dsyncoid.1 syncoid || die "Failed to compile syncoid.1!"
+}
+
 src_install() {
 	dobin sanoid
 	dobin syncoid
+
+	doman sanoid.1 syncoid.1
 
 	insinto /etc/sanoid
 	doins "sanoid.defaults.conf"
