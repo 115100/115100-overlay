@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo status="unofficial">
+    <name><![CDATA[115100-overlay]]></name>
+    <description lang="en"><![CDATA[115100 Overlay]]></description>
+    <homepage>http://github.com/115100/115100-overlay</homepage>
+    <owner>
+      <email>anonymous@example.com</email>
+      <name><![CDATA[115100]]></name>
+    </owner>
+    <source type="git">git://github.com/115100/115100-overlay.git</source>
+    <feed>http://github.com/115100/115100-overlay/commits/master.atom</feed>
+  </repo>
+</repositories>
