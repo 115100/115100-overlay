@@ -33,7 +33,6 @@ RDEPEND="
 "
 
 src_install() {
-	dobin findoid
 	dobin sanoid
 	dobin syncoid
 
