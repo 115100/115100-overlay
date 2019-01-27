@@ -26,6 +26,7 @@ RDEPEND="${PYTHON_DEPS}
 	|| (
 		dev-python/requests[${PYTHON_USEDEP}]
 		>=dev-python/twisted-16.0.0[${PYTHON_USEDEP}]
+		dev-python/twisted-core[${PYTHON_USEDEP}]
 	)
 	gui? ( dev-python/pyside[${PYTHON_USEDEP}] )
 	vlc? ( media-video/vlc[lua] )"
