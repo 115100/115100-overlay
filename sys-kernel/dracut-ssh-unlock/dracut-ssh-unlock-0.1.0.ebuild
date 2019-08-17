@@ -20,6 +20,11 @@ SLOT="0"
 
 RDEPEND="
 	net-misc/openssh
+	sys-kernel/dracut
+"
+
+BDEPEND="
+	virtual/rust
 "
 
 src_install() {
