@@ -11,7 +11,7 @@ nix-0.15.0
 void-1.0.2
 "
 
-SRC_URI="https://github.com/115100/dracut-ssh-unlock/archive/v${PV}.zip
+SRC_URI="https://github.com/115100/dracut-ssh-unlock/archive/v${PV}.zip -> ${P}.zip
 $(cargo_crate_uris ${CRATES})"
 
 LICENSE="BSD-2"
