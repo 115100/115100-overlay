@@ -4,9 +4,9 @@ inherit cargo
 
 CRATES="
 bitflags-1.1.0
-cc-1.0.40
+cc-1.0.41
 cfg-if-0.1.9
-libc-0.2.61
+libc-0.2.62
 nix-0.15.0
 void-1.0.2
 "
