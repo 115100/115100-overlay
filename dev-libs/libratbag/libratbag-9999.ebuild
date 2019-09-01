@@ -34,6 +34,7 @@ src_configure() {
 		-Denable-tests=$(usex test true false)
 		-Dudev-dir=$(get_udevdir)
 		-Dlogind-provider=elogind
+		-Dsystemd=false
 	)
 	meson_src_configure
 }
