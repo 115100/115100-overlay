@@ -12,11 +12,13 @@ EGIT_REPO_URI="https://github.com/libratbag/libratbag.git"
 
 LICENSE="MIT"
 SLOT="0"
-IUSE="doc test"
+IUSE="doc systemd test"
 
 DEPEND="
 	virtual/pkgconfig
 	doc? ( app-doc/doxygen )
+	test? ( dev-util/valgrind )
+	!systemd? ( sys-auth/elogind )
 "
 RDEPEND="
 	dev-libs/libevdev
@@ -30,11 +32,11 @@ src_prepare() {
 
 src_configure() {
 	local emesonargs=(
-		-Denable-documentation=$(usex doc true false)
-		-Denable-tests=$(usex test true false)
+		-Ddocumentation=$(usex doc true false)
+		-Dtests=$(usex test true false)
 		-Dudev-dir=$(get_udevdir)
-		-Dlogind-provider=elogind
-		-Dsystemd=false
+		-Dlogind-provider=(usex systemd systemd elogind)
+		-Dsystemd=(usex systemd true false)
 	)
 	meson_src_configure
 }
