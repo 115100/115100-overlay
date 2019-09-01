@@ -35,8 +35,8 @@ src_configure() {
 		-Ddocumentation=$(usex doc true false)
 		-Dtests=$(usex test true false)
 		-Dudev-dir=$(get_udevdir)
-		-Dlogind-provider=(usex systemd systemd elogind)
-		-Dsystemd=(usex systemd true false)
+		-Dlogind-provider=$(usex systemd systemd elogind)
+		-Dsystemd=$(usex systemd true false)
 	)
 	meson_src_configure
 }
