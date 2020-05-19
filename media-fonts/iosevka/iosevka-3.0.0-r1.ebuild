@@ -7,7 +7,7 @@ inherit font
 
 DESCRIPTION="Slender typeface for code, from code"
 HOMEPAGE="https://be5invis.github.io/Iosevka/"
-SRC_URI="https://github.com/be5invis/${PN}/releases/download/v${PV}/ttf-${P}.zip
+SRC_URI="https://github.com/be5invis/${PN}/releases/download/v${PV}/pkg-${P}.zip
 slab? (
 	https://github.com/be5invis/${PN}/releases/download/v${PV}/pkg-${PN}-slab-${PV}.zip
 )
