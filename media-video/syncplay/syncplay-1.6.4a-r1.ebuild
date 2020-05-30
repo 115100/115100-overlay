@@ -1,11 +1,10 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
+PYTHON_COMPAT=( python3_{6,7,8,9} )
 
-PYTHON_COMPAT=( python3_7 )
-
-inherit python-r1
+inherit python-single-r1
 
 DESCRIPTION="Client/server to synchronize media playback"
 HOMEPAGE="https://syncplay.pl"
@@ -22,12 +21,15 @@ REQUIRED_USE="vlc? ( client )
 DEPEND=""
 # TODO: investigate the possibility of enabling PyQt5 gui
 # possible licensing concerns
-RDEPEND="${PYTHON_DEPS}
-	dev-python/requests[${PYTHON_USEDEP}]
-	>=dev-python/twisted-16.0.0[${PYTHON_USEDEP}]
+RDEPEND="
+	$(python_gen_cond_dep '
+		>=dev-python/certifi-2018.11.29[${PYTHON_USEDEP}]
+		>=dev-python/twisted-16.4.0[crypt,${PYTHON_USEDEP}]
+		gui? ( >=dev-python/pyside2-5.12.0[${PYTHON_USEDEP}] )
+	')
 
-	gui? ( dev-python/pyside2[${PYTHON_USEDEP}] )
-	vlc? ( media-video/vlc[lua] )"
+	vlc? ( media-video/vlc[lua] )
+"
 
 src_prepare() {
 	default
@@ -48,6 +50,7 @@ src_install() {
 		emake "${MY_MAKEOPTS[@]}" VLC_SUPPORT=$(usex vlc true false) install-client
 	use server && \
 		emake "${MY_MAKEOPTS[@]}" install-server
+	python_fix_shebang "${ED}"/usr/bin
 }
 
 pkg_postinst() {
