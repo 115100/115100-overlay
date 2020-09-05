@@ -9,7 +9,7 @@ inherit python-r1 meson
 
 DESCRIPTION="A GTK front-end to ratbagd"
 HOMEPAGE="https://github.com/libratbag/piper"
-SRC_URI="https://github.com/libratbag/piper/archive/${PV}.tar.gz"
+SRC_URI="https://github.com/libratbag/piper/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-2"
 KEYWORDS="~amd64"
 
