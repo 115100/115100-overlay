@@ -3,12 +3,12 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{4,5,6} )
-inherit python-single-r1 meson git-r3 udev
+PYTHON_COMPAT=( python3_7 )
+inherit python-single-r1 meson udev
 
 DESCRIPTION="Library to configure gaming mice"
 HOMEPAGE="https://github.com/libratbag/libratbag"
-EGIT_REPO_URI="https://github.com/libratbag/libratbag.git"
+SRC_URI="https://github.com/libratbag/libratbag/archive/v${PV}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
