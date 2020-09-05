@@ -28,7 +28,7 @@ RDEPEND="
 
 src_prepare() {
 	default
-	python_setup 'python3*'
+	python_setup
 }
 
 src_configure() {
@@ -40,4 +40,9 @@ src_configure() {
 		-Dsystemd=$(usex systemd true false)
 	)
 	meson_src_configure
+}
+
+src_install() {
+	meson_src_install
+	python_fix_shebang "${D}"/usr/bin/ratbagctl
 }
