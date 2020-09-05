@@ -1,16 +1,17 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=( python3_7 )
 
-inherit git-r3 python-r1 meson
+inherit python-r1 meson
 
 DESCRIPTION="A GTK front-end to ratbagd"
 HOMEPAGE="https://github.com/libratbag/piper"
-EGIT_REPO_URI="https://github.com/libratbag/piper"
+SRC_URI="https://github.com/libratbag/piper/archive/${PV}.tar.gz"
 LICENSE="GPL-2"
+KEYWORDS="~amd64"
 
 SLOT="0"
 
@@ -19,12 +20,19 @@ DEPEND="
 "
 
 RDEPEND="
-	dev-python/python-evdev
 	>=x11-libs/gtk+-3.22
+	dev-libs/libratbag
 	dev-python/pygobject:3
+	dev-python/python-evdev
 "
 
 src_prepare() {
 	default
 	python_setup
+}
+
+src_install() {
+	meson_src_install
+	python_fix_shebang "${D}"/usr/bin/piper
+	python_optimize
 }
