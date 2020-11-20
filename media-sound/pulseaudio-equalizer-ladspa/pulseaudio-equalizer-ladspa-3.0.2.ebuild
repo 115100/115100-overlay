@@ -20,7 +20,7 @@ DEPEND="
 RDEPEND="
 	app-shells/bash
 	>=dev-python/pygobject-3.30
-	media-libs/ladspa-sdk
+	media-plugins/swh-plugins
 	media-sound/pulseaudio
 	x11-libs/gtk+:3
 "
