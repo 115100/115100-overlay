@@ -1,3 +1,6 @@
+# Copyright 1999-2020 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
 EAPI=7
 
 DESCRIPTION="A utility for downloading TV and radio programmes from BBC iPlayer and BBC Sounds."
