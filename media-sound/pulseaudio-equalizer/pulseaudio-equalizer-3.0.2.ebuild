@@ -14,7 +14,7 @@ KEYWORDS="~amd64"
 LICENSE="GPL-3"
 SLOT="0"
 
-DEPEND="
+BDEPEND="
 	sys-devel/bc
 "
 RDEPEND="
