@@ -18,7 +18,7 @@ RDEPEND="
 	dev-perl/XML-LibXML
 	dev-perl/libwww-perl
 	media-video/atomicparsley
-	virtual/ffmpeg
+	media-video/ffmpeg
 "
 
 src_install() {
