@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Foundation
+# Copyright 2019-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -14,6 +14,8 @@ nix-0.15.0
 void-1.0.2
 "
 
+DESCRIPTION="A dracut module for unlocking an encrypted drive remotely over SSH."
+HOMEPAGE="https://github.com/115100/dracut-ssh-unlock"
 SRC_URI="https://github.com/115100/dracut-ssh-unlock/archive/v${PV}.zip -> ${P}.zip
 $(cargo_crate_uris ${CRATES})"
 
@@ -31,5 +33,5 @@ BDEPEND="
 "
 
 src_install() {
-	make DESTDIR=${D} install
+	make DESTDIR="${D}" install
 }

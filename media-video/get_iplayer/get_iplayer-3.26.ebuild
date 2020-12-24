@@ -1,9 +1,9 @@
-# Copyright 1999-2020 Gentoo Foundation
+# Copyright 2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-DESCRIPTION="A utility for downloading TV and radio programmes from BBC iPlayer and BBC Sounds."
+DESCRIPTION="Utility for downloading TV and radio programmes from BBC iPlayer and BBC Sounds."
 HOMEPAGE="https://github.com/get-iplayer/get_iplayer"
 SRC_URI="https://github.com/get-iplayer/get_iplayer/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
