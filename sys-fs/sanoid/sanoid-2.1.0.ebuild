@@ -20,8 +20,9 @@ IUSE="
 	-pv
 	-zstd
 "
-DEPEND="
+BDEPEND="
 	dev-lang/perl
+	sys-apps/groff
 "
 RDEPEND="
 	dev-lang/perl
