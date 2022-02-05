@@ -19,9 +19,10 @@ SLOT="0"
 
 RDEPEND="
 	$(python_gen_cond_dep '
+		dev-python/clint[${PYTHON_USEDEP}]
 		dev-python/pyyaml[${PYTHON_USEDEP}]
-		dev-python/requests[${PYTHON_USEDEP}]
 		dev-python/requests-toolbelt[${PYTHON_USEDEP}]
+		dev-python/requests[${PYTHON_USEDEP}]
 		dev-python/wand[${PYTHON_USEDEP}]
 		dev-python/watchdog[${PYTHON_USEDEP}]
 	')
