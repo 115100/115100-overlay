@@ -1,4 +1,4 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2021-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -12,7 +12,7 @@ inherit distutils-r1
 DESCRIPTION="Encode and organise your music collection"
 HOMEPAGE="https://github.com/115100/untz_manager"
 SRC_URI="https://github.com/115100/untz_manager/archive/${PV}.tar.gz -> ${P}.tar.gz"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="+cue +opus vorbis"
 
 LICENSE="BSD"
