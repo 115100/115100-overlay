@@ -11,6 +11,10 @@ LICENSE="GPL-3"
 KEYWORDS="~amd64"
 SLOT="3"
 
+IUSE="
+	-pvr
+"
+
 RDEPEND="
 	dev-lang/perl
 	dev-perl/LWP-Protocol-https
@@ -19,6 +23,8 @@ RDEPEND="
 	dev-perl/libwww-perl
 	media-video/atomicparsley
 	media-video/ffmpeg
+
+	pvr? ( dev-perl/CGI )
 "
 
 src_install() {

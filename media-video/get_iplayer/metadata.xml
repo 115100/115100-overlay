@@ -4,4 +4,7 @@
   <maintainer type="person">
     <email>git@three-sigma.org</email>
   </maintainer>
+  <use>
+    <flag name="pvr"></flag>
+  </use>
 </pkgmetadata>
