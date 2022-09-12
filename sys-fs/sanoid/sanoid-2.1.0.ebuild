@@ -5,7 +5,7 @@ EAPI=7
 
 DESCRIPTION="Policy-driven snapshot management and replication tools for ZFS."
 HOMEPAGE="https://github.com/jimsalterjrs/sanoid"
-SRC_URI="https://github.com/jimsalterjrs/sanoid/archive/v${PV}.zip -> ${P}.zip"
+SRC_URI="https://github.com/jimsalterjrs/sanoid/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 KEYWORDS="~amd64"
