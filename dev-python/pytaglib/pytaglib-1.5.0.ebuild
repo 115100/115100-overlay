@@ -13,7 +13,6 @@ SRC_URI="https://github.com/supermihi/${PN}/archive/v${PV}.tar.gz -> ${P}.gh.tar
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 RDEPEND="media-libs/taglib"
 DEPEND="${RDEPEND}"
