@@ -13,12 +13,11 @@ SLOT="0"
 
 IUSE="
 	lzop
-
-	-gzip
-	-mbuffer
-	-pigz
-	-pv
-	-zstd
+	gzip
+	mbuffer
+	pigz
+	pv
+	zstd
 "
 BDEPEND="
 	dev-lang/perl
