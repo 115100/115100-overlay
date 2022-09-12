@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>git@three-sigma.org</email>
-  </maintainer>
-  <use>
-    <flag name="pvr"></flag>
-  </use>
+	<maintainer type="person">
+		<email>git@three-sigma.org</email>
+	</maintainer>
+	<use>
+		<flag name="pvr">
+			Automatically record iPlayer/Sounds programmes using saved combinations of search terms and options that you would normally run on the command line
+		</flag>
+	</use>
 </pkgmetadata>

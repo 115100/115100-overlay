@@ -12,7 +12,7 @@ KEYWORDS="~amd64"
 SLOT="3"
 
 IUSE="
-	-pvr
+	pvr
 "
 
 RDEPEND="
