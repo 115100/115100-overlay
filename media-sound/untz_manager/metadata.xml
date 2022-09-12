@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>git@three-sigma.org</email>
-  </maintainer>
-  <use>
-    <flag name="cue"></flag>
-    <flag name="opus"></flag>
-    <flag name="vorbis"></flag>
-  </use>
+	<maintainer type="person">
+		<email>git@three-sigma.org</email>
+	</maintainer>
+	<use>
+		<flag name="cue">
+			Add cue sheet support
+		</flag>
+		<flag name="opus">
+			Add Opus codec support from <pkg>media-sound/opus-tools</pkg>
+		</flag>
+		<flag name="vorbis">
+			Add Vorbis codec support from <pkg>media-sound/vorbis-tools</pkg>
+		</flag>
+		</use>
 </pkgmetadata>
