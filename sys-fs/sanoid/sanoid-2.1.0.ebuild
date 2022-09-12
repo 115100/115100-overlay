@@ -12,8 +12,8 @@ KEYWORDS="~amd64"
 SLOT="0"
 
 IUSE="
-	lzop
 	gzip
+	lzop
 	mbuffer
 	pigz
 	pv
