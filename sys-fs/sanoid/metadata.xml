@@ -24,4 +24,7 @@
 			Compress syncoid payloads with <pkg>app-arch/zstd</pkg>
 		</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">jimsalterjrs/sanoid</remote-id>
+	</upstream>
 </pkgmetadata>
