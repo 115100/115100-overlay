@@ -15,4 +15,7 @@
 			Add Vorbis codec support from <pkg>media-sound/vorbis-tools</pkg>
 		</flag>
 		</use>
+	<upstream>
+		<remote-id type="github">115100/untz_manager</remote-id>
+	</upstream>
 </pkgmetadata>
