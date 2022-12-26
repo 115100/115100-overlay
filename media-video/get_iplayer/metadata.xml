@@ -9,4 +9,7 @@
 			Automatically record iPlayer/Sounds programmes using saved combinations of search terms and options that you would normally run on the command line
 		</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">get-iplayer/get_iplayer</remote-id>
+	</upstream>
 </pkgmetadata>
