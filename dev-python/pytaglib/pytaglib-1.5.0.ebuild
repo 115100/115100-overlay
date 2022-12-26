@@ -17,3 +17,4 @@ KEYWORDS="~amd64"
 
 RDEPEND="media-libs/taglib"
 DEPEND="${RDEPEND}"
+RESTRICT="test"
