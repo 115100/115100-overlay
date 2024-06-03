@@ -12,10 +12,9 @@ inherit distutils-r1
 DESCRIPTION="Set of Python functions for load.link's API."
 HOMEPAGE="https://github.com/115100/llclient"
 SRC_URI="https://github.com/115100/llclient/archive/${PV}.tar.gz -> ${P}.tar.gz"
-KEYWORDS="~amd64 ~x86"
-
 LICENSE="BSD"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	$(python_gen_cond_dep '
