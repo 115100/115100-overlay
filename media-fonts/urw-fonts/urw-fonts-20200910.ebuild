@@ -11,11 +11,10 @@ DESCRIPTION="Repository for (URW)++ base 35 font set"
 HOMEPAGE="https://github.com/ArtifexSoftware/urw-base35-fonts"
 SRC_URI="https://github.com/ArtifexSoftware/${MY_PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
+S="${WORKDIR}/${MY_PN}-${PV}"
 LICENSE="AGPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-
-S="${WORKDIR}/${MY_PN}-${PV}"
 
 src_prepare() {
 	cd "${S}"/fontconfig
