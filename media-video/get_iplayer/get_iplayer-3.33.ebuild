@@ -8,12 +8,9 @@ HOMEPAGE="https://github.com/get-iplayer/get_iplayer"
 SRC_URI="https://github.com/get-iplayer/get_iplayer/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
-KEYWORDS="~amd64"
 SLOT="3"
-
-IUSE="
-	pvr
-"
+KEYWORDS="~amd64"
+IUSE="pvr"
 
 RDEPEND="
 	dev-lang/perl
