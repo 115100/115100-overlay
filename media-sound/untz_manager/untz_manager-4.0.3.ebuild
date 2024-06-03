@@ -13,10 +13,9 @@ DESCRIPTION="Encode and organise your music collection"
 HOMEPAGE="https://github.com/115100/untz_manager"
 SRC_URI="https://github.com/115100/untz_manager/archive/${PV}.tar.gz -> ${P}.tar.gz"
 KEYWORDS="~amd64"
-IUSE="+cue +opus vorbis"
-
 LICENSE="BSD"
 SLOT="0"
+IUSE="+cue +opus vorbis"
 
 RDEPEND="
 	cue? (
