@@ -8,17 +8,10 @@ HOMEPAGE="https://github.com/jimsalterjrs/sanoid"
 SRC_URI="https://github.com/jimsalterjrs/sanoid/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
-KEYWORDS="~amd64"
 SLOT="0"
+KEYWORDS="~amd64"
 
-IUSE="
-	gzip
-	lzop
-	mbuffer
-	pigz
-	pv
-	zstd
-"
+IUSE="gzip lzop mbuffer pigz pv zstd"
 BDEPEND="
 	dev-lang/perl
 	sys-apps/groff
