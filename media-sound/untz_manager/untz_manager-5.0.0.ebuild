@@ -29,6 +29,6 @@ RDEPEND="
 		media-sound/vorbis-tools
 	)
 	$(python_gen_cond_dep 'dev-python/pytaglib[${PYTHON_USEDEP}]')
-	media-sound/loudgain
+	media-sound/rsgain
 	media-libs/flac
 "
