@@ -20,6 +20,9 @@ RDEPEND="
 	dev-lang/perl
 	dev-perl/Capture-Tiny
 	dev-perl/Config-IniFiles
+	virtual/perl-Data-Dumper
+	virtual/perl-Getopt-Long
+
 	sys-fs/zfs
 	virtual/ssh
 
