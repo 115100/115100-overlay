@@ -7,7 +7,7 @@ inherit font unpacker
 
 DESCRIPTION="A CJK programming font based on Iosevka and Source Han Sans"
 HOMEPAGE="https://be5invis.github.io/Sarasa-Gothic/"
-SRC_URI="https://github.com/be5invis/${PN}/releases/download/v${PV}/${PN}-ttc-${PV}.7z -> ${P}.7z"
+SRC_URI="https://github.com/be5invis/${PN}/releases/download/v${PV}/Sarasa-TTC-${PV}.7z -> ${P}.7z"
 
 S=${WORKDIR}
 LICENSE="OFL-1.1"
