@@ -15,6 +15,7 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 
-RDEPEND="media-libs/taglib"
+BDEPEND="dev-python/cython"
+RDEPEND=">=media-libs/taglib-2.0"
 DEPEND="${RDEPEND}"
 RESTRICT="test"
