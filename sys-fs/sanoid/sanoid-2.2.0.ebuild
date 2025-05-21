@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit systemd
+inherit optfeature systemd
 
 DESCRIPTION="Policy-driven snapshot management and replication tools for ZFS."
 HOMEPAGE="https://github.com/jimsalterjrs/sanoid"
@@ -13,7 +13,6 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 
-IUSE="gzip lzop mbuffer pigz pv zstd"
 BDEPEND="
 	dev-lang/perl
 	sys-apps/groff
@@ -22,18 +21,12 @@ RDEPEND="
 	dev-lang/perl
 	dev-perl/Capture-Tiny
 	dev-perl/Config-IniFiles
+	sys-apps/pv
+	sys-block/mbuffer
+	sys-fs/zfs
 	virtual/perl-Data-Dumper
 	virtual/perl-Getopt-Long
-
-	sys-fs/zfs
 	virtual/ssh
-
-	gzip?    ( app-arch/gzip )
-	lzop?    ( app-arch/lzop )
-	mbuffer? ( sys-block/mbuffer )
-	pigz?    ( app-arch/pigz )
-	pv?      ( sys-apps/pv )
-	zstd?    ( app-arch/zstd )
 "
 
 src_compile() {
@@ -50,6 +43,12 @@ src_install() {
 	insinto /etc/sanoid
 	doins "sanoid.defaults.conf"
 	systemd_dounit "${FILESDIR}/${PN}".{service,timer}
+}
+
+pkg_postinst() {
+	optfeature "lzop compression support" app-arch/lzop
+	optfeature "pigz compression support" app-arch/pigz
+	optfeature "zstd compression support" app-arch/zstd
 
 	elog "You will need to set up your /etc/sanoid/sanoid.conf file before"
 	elog "running sanoid for the first time. For details, please consult the"
