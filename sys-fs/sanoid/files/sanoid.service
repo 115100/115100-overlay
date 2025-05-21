@@ -1,0 +1,12 @@
+[Unit]
+Description=sanoid snapshot process
+Documentation=man:sanoid(1)
+Requires=zfs.target
+After=zfs.target
+ConditionPathIsDirectory=/sys/module/zfs
+ConditionFileNotEmpty=/etc/sanoid/sanoid.conf
+
+[Service]
+Environment=TZ=UTC
+Type=oneshot
+ExecStart=/usr/bin/sanoid

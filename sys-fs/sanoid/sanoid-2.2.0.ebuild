@@ -3,6 +3,8 @@
 
 EAPI=8
 
+inherit systemd
+
 DESCRIPTION="Policy-driven snapshot management and replication tools for ZFS."
 HOMEPAGE="https://github.com/jimsalterjrs/sanoid"
 SRC_URI="https://github.com/jimsalterjrs/sanoid/archive/v${PV}.tar.gz -> ${P}.tar.gz"
@@ -47,6 +49,7 @@ src_install() {
 
 	insinto /etc/sanoid
 	doins "sanoid.defaults.conf"
+	systemd_dounit "${FILESDIR}/${PN}".{service,timer}
 
 	elog "You will need to set up your /etc/sanoid/sanoid.conf file before"
 	elog "running sanoid for the first time. For details, please consult the"
