@@ -4,7 +4,6 @@ Documentation=man:sanoid(1)
 
 [Timer]
 OnCalendar=hourly
-RandomizedDelaySec=300
 Persistent=true
 
 [Install]
