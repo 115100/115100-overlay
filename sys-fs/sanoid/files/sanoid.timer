@@ -4,6 +4,7 @@ Documentation=man:sanoid(1)
 
 [Timer]
 OnCalendar=hourly
+AccuracySec=1us
 
 [Install]
 WantedBy=timers.target
