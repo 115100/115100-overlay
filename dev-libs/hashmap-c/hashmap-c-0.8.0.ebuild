@@ -16,22 +16,22 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-src_unpack() {
-	if [[ -n ${A} ]]; then
-		unpack ${A}
-	fi
-	mv "${WORKDIR}/hashmap.c-${PV}" "${P}" || die
-}
+S="${WORKDIR}/hashmap.c-${PV}"
 
 src_compile() {
-	$(tc-getCC) ${CFLAGS} \
-		${LDFLAGS} -shared hashmap.c \
-		-o hashmap.so
+	"$(tc-getCC)" \
+		${LDFLAGS} \
+		${CFLAGS} \
+		${CPPFLAGS} \
+		-Wl,-soname,libhashmap.so \
+		-fPIC \
+		-shared \
+		hashmap.c -o libhashmap.so || die "libhashmap.so failed"
 }
 
 src_install() {
-	dolib.so hashmap.so
-	insinto /usr/include
-	doins hashmap.h
+	dolib.so libhashmap.so
+	doheader hashmap.h
+
 	dodoc README.md
 }
