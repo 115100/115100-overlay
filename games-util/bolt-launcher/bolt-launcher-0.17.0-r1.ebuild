@@ -12,13 +12,11 @@ HOMEPAGE="https://github.com/Adamcake/Bolt"
 # CEF distributions are used because Gentoo does not package them. I'm not compiling these from source either.
 CEF_VERSION="138.0.15+gd0f1f64+chromium-138.0.7204.50" # Grab from https://cef-builds.spotifycdn.com/index.html#linux64
 TIDWALL_HASHMAP_C_VERSION="0.8.0"
-LIBSPNG_VERSION="0.7.4"
 SRC_URI="
 	https://github.com/Adamcake/Bolt/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz
 	https://cef-builds.spotifycdn.com/cef_binary_${CEF_VERSION}_linux64_minimal.tar.bz2
 	https://github.com/tidwall/hashmap.c/archive/refs/tags/v${TIDWALL_HASHMAP_C_VERSION}.tar.gz
 	-> hashmap.c-v${TIDWALL_HASHMAP_C_VERSION}.tar.gz
-	https://github.com/randy408/libspng/archive/refs/tags/v${LIBSPNG_VERSION}.tar.gz -> libspng-v${LIBSPNG_VERSION}.tar.gz
 "
 
 LICENSE="AGPL-3"
@@ -33,6 +31,7 @@ RDEPEND="
 	app-arch/libarchive
 	dev-lang/luajit
 	dev-libs/libfmt
+	media-libs/libspng
 	x11-libs/libX11
 	x11-libs/libxcb
 	${LUA_DEPS}
@@ -41,16 +40,16 @@ RDEPEND="
 PATCHES=(
 	"${FILESDIR}/0001-src-browser-add-popup_id-parameter-to-OnBeforePopup.patch"
 	"${FILESDIR}/0002-cmake-use-system-libfmt.patch"
+	"${FILESDIR}/0003-cmake-use-system-libspng.patch"
 )
 
 src_unpack() {
 	if [[ -n ${A} ]]; then
 		unpack ${A}
 	fi
-	mv "${WORKDIR}/Bolt-${PV}" "${P}"
-	mv "${WORKDIR}/cef_binary_${CEF_VERSION}_linux64_minimal" "${WORKDIR}/${P}/cef/dist"
-	mv "${WORKDIR}/hashmap.c-${TIDWALL_HASHMAP_C_VERSION}/hashmap."{c,h} "${WORKDIR}/${P}/modules/hashmap"
-	mv "${WORKDIR}/libspng-${LIBSPNG_VERSION}/"* "${WORKDIR}/${P}/modules/spng"
+	mv "${WORKDIR}/Bolt-${PV}" "${P}" || die
+	mv "${WORKDIR}/cef_binary_${CEF_VERSION}_linux64_minimal" "${WORKDIR}/${P}/cef/dist" || die
+	mv "${WORKDIR}/hashmap.c-${TIDWALL_HASHMAP_C_VERSION}/hashmap."{c,h} "${WORKDIR}/${P}/modules/hashmap" || die
 }
 
 src_configure() {

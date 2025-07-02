@@ -1,0 +1,74 @@
+From ae99d4b00702f5c8d15bfddf1fd8ebc17f273f20 Mon Sep 17 00:00:00 2001
+From: 115100 <git@three-sigma.org>
+Date: Wed, 2 Jul 2025 17:02:37 +0100
+Subject: [PATCH] cmake: use system libspng
+
+---
+ CMakeLists.txt                  | 3 ++-
+ icon/generator.cxx              | 5 ++---
+ src/library/CMakeLists.txt      | 4 ++--
+ src/library/plugin/plugin_api.c | 2 +-
+ 4 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 9073e40..98cdd6b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -369,7 +369,8 @@ endif()
+ 
+ # compile an auto-generator, then use it to auto-generate a C++ file containing icon data
+ set(BOLT_ICON_DIR "${CMAKE_CURRENT_SOURCE_DIR}/icon")
+-add_executable(icon_gen icon/generator.cxx modules/spng/spng/spng.c src/miniz/miniz.c)
++add_executable(icon_gen icon/generator.cxx src/miniz/miniz.c)
++target_link_libraries(icon_gen PUBLIC spng)
+ target_include_directories(icon_gen PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/miniz")
+ target_compile_definitions(icon_gen PUBLIC SPNG_STATIC=1 SPNG_USE_MINIZ=1)
+ set_target_properties(icon_gen PROPERTIES CXX_STANDARD 20 CXX_EXTENSIONS OFF)
+diff --git a/icon/generator.cxx b/icon/generator.cxx
+index 7d9de1c..b59d698 100644
+--- a/icon/generator.cxx
++++ b/icon/generator.cxx
+@@ -1,7 +1,6 @@
+-#include "../modules/spng/spng/spng.h"
+-
+-#include <iostream>
+ #include <fstream>
++#include <iostream>
++#include <spng.h>
+ #include <sstream>
+ #include <string.h>
+ 
+diff --git a/src/library/CMakeLists.txt b/src/library/CMakeLists.txt
+index e215d6b..960b0e9 100644
+--- a/src/library/CMakeLists.txt
++++ b/src/library/CMakeLists.txt
+@@ -8,8 +8,8 @@ set(LIBRARY_IPC_OS_SPECIFIC "${CMAKE_CURRENT_SOURCE_DIR}/ipc_posix.c" PARENT_SCO
+ if(UNIX AND NOT APPLE)
+     add_library(${BOLT_PLUGIN_LIB_NAME} SHARED so/main.c plugin/plugin.c plugin/plugin_api.c gl.c
+     rwlock/rwlock_posix.c ipc_posix.c plugin/plugin_posix.c ../../modules/hashmap/hashmap.c
+-    ../miniz/miniz.c ../sha256/sha256.c ../../modules/spng/spng/spng.c)
+-    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} luajit-5.1)
++    ../miniz/miniz.c ../sha256/sha256.c)
++    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} luajit-5.1 spng)
+     target_include_directories(${BOLT_PLUGIN_LIB_NAME} PUBLIC "${BOLT_LUAJIT_INCLUDE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/../miniz")
+     install(TARGETS ${BOLT_PLUGIN_LIB_NAME} DESTINATION "${BOLT_LIBDIR}")
+ endif()
+diff --git a/src/library/plugin/plugin_api.c b/src/library/plugin/plugin_api.c
+index d4a7057..05c19a0 100644
+--- a/src/library/plugin/plugin_api.c
++++ b/src/library/plugin/plugin_api.c
+@@ -4,10 +4,10 @@
+ #include "plugin.h"
+ 
+ #include "../../../modules/hashmap/hashmap.h"
+-#include "../../../modules/spng/spng/spng.h"
+ 
+ #include <lauxlib.h>
+ #include <math.h>
++#include <spng.h>
+ #include <string.h>
+ #include <time.h>
+ 
+-- 
+2.49.0
+
