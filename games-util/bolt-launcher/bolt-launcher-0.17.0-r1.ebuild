@@ -43,19 +43,19 @@ PATCHES=(
 	"${FILESDIR}/0003-cmake-use-system-libspng.patch"
 )
 
+S="${WORKDIR}/Bolt-${PV}"
+
 src_unpack() {
 	if [[ -n ${A} ]]; then
 		unpack ${A}
 	fi
-	mv "${WORKDIR}/Bolt-${PV}" "${P}" || die
-	mv "${WORKDIR}/cef_binary_${CEF_VERSION}_linux64_minimal" "${WORKDIR}/${P}/cef/dist" || die
-	mv "${WORKDIR}/hashmap.c-${TIDWALL_HASHMAP_C_VERSION}/hashmap."{c,h} "${WORKDIR}/${P}/modules/hashmap" || die
+	mv "${WORKDIR}/cef_binary_${CEF_VERSION}_linux64_minimal" "${S}/cef/dist" || die
 }
 
 src_configure() {
 	local CMAKE_BUILD_TYPE=Release
 	local mycmakeargs=(
-		-DBOLT_CEF_INCLUDEPATH="${WORKDIR}/${P}/cef/dist"
+		-DBOLT_CEF_INCLUDEPATH="${S}/cef/dist"
 		-DBOLT_LUAJIT_INCLUDE_DIR="$(lua_get_include_dir)"
 		-DCMAKE_INSTALL_PREFIX=/
 		-DBOLT_BINDIR=usr/bin
