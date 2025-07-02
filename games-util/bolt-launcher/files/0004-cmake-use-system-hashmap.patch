@@ -1,0 +1,94 @@
+From 131947b4e7964074aebaae8d46d3a2d0ad52ebda Mon Sep 17 00:00:00 2001
+From: 115100 <git@three-sigma.org>
+Date: Wed, 2 Jul 2025 17:35:50 +0100
+Subject: [PATCH] cmake: use system hashmap
+
+---
+ src/library/CMakeLists.txt      | 5 ++---
+ src/library/gl.c                | 2 +-
+ src/library/plugin/plugin.c     | 2 +-
+ src/library/plugin/plugin_api.c | 3 +--
+ src/library/so/main.c           | 2 +-
+ 5 files changed, 6 insertions(+), 8 deletions(-)
+
+diff --git a/src/library/CMakeLists.txt b/src/library/CMakeLists.txt
+index 960b0e9..ac23f2a 100644
+--- a/src/library/CMakeLists.txt
++++ b/src/library/CMakeLists.txt
+@@ -7,9 +7,8 @@ set(LIBRARY_IPC_OS_SPECIFIC "${CMAKE_CURRENT_SOURCE_DIR}/ipc_posix.c" PARENT_SCO
+ 
+ if(UNIX AND NOT APPLE)
+     add_library(${BOLT_PLUGIN_LIB_NAME} SHARED so/main.c plugin/plugin.c plugin/plugin_api.c gl.c
+-    rwlock/rwlock_posix.c ipc_posix.c plugin/plugin_posix.c ../../modules/hashmap/hashmap.c
+-    ../miniz/miniz.c ../sha256/sha256.c)
+-    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} luajit-5.1 spng)
++    rwlock/rwlock_posix.c ipc_posix.c plugin/plugin_posix.c ../miniz/miniz.c ../sha256/sha256.c)
++    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} hashmap luajit-5.1 spng)
+     target_include_directories(${BOLT_PLUGIN_LIB_NAME} PUBLIC "${BOLT_LUAJIT_INCLUDE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/../miniz")
+     install(TARGETS ${BOLT_PLUGIN_LIB_NAME} DESTINATION "${BOLT_LIBDIR}")
+ endif()
+diff --git a/src/library/gl.c b/src/library/gl.c
+index 9679c52..cf24276 100644
+--- a/src/library/gl.c
++++ b/src/library/gl.c
+@@ -1,8 +1,8 @@
+ #include "plugin/plugin.h"
+ #include "gl.h"
+ #include "rwlock/rwlock.h"
+-#include "../../modules/hashmap/hashmap.h"
+ 
++#include <hashmap.h>
+ #include <math.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+diff --git a/src/library/plugin/plugin.c b/src/library/plugin/plugin.c
+index 669af3a..c61ba7c 100644
+--- a/src/library/plugin/plugin.c
++++ b/src/library/plugin/plugin.c
+@@ -3,8 +3,8 @@
+ #include "plugin.h"
+ #include "lua.h"
+ #include "plugin_api.h"
+-#include "../../../modules/hashmap/hashmap.h"
+ 
++#include <hashmap.h>
+ #include <lauxlib.h>
+ #include <lualib.h>
+ #include <stdlib.h>
+diff --git a/src/library/plugin/plugin_api.c b/src/library/plugin/plugin_api.c
+index 05c19a0..1768127 100644
+--- a/src/library/plugin/plugin_api.c
++++ b/src/library/plugin/plugin_api.c
+@@ -3,8 +3,7 @@
+ #include "lua.h"
+ #include "plugin.h"
+ 
+-#include "../../../modules/hashmap/hashmap.h"
+-
++#include <hashmap.h>
+ #include <lauxlib.h>
+ #include <math.h>
+ #include <spng.h>
+diff --git a/src/library/so/main.c b/src/library/so/main.c
+index 1369031..638a7b3 100644
+--- a/src/library/so/main.c
++++ b/src/library/so/main.c
+@@ -3,6 +3,7 @@
+ #include <unistd.h>
+ #undef _GNU_SOURCE
+ 
++#include <hashmap.h>
+ #include <pthread.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+@@ -13,7 +14,6 @@
+ #include "sdl.h"
+ #include "../gl.h"
+ #include "../plugin/plugin.h"
+-#include "../../../modules/hashmap/hashmap.h"
+ 
+ // -D BOLT_LIBRARY_VERBOSE=1
+ #if defined(VERBOSE)
+-- 
+2.49.0
+
