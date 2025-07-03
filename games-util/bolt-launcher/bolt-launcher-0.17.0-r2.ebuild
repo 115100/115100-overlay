@@ -15,6 +15,7 @@ SRC_URI="
 	https://github.com/Adamcake/Bolt/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz
 	https://cef-builds.spotifycdn.com/cef_binary_${CEF_VERSION}_linux64_minimal.tar.bz2
 "
+S="${WORKDIR}/Bolt-${PV}"
 
 LICENSE="AGPL-3"
 SLOT="0"
@@ -36,13 +37,11 @@ RDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}/0001-src-browser-add-popup_id-parameter-to-OnBeforePopup.patch"
+	"${FILESDIR}/0001-browser-add-popup_id-parameter-to-OnBeforePopup.patch"
 	"${FILESDIR}/0002-cmake-use-system-libfmt.patch"
 	"${FILESDIR}/0003-cmake-use-system-libspng.patch"
 	"${FILESDIR}/0004-cmake-use-system-hashmap.patch"
 )
-
-S="${WORKDIR}/Bolt-${PV}"
 
 src_unpack() {
 	if [[ -n ${A} ]]; then

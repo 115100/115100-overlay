@@ -1,9 +1,9 @@
-From 39390054a2f4760d86d693eb8c5629eb437789ec Mon Sep 17 00:00:00 2001
+From 6692ffc1a604a769ba81c9dc9c69f37820b25d4a Mon Sep 17 00:00:00 2001
 From: 115100 <git@three-sigma.org>
 Date: Sat, 28 Jun 2025 15:38:26 +0100
-Subject: [PATCH] src: browser: add popup_id parameter to OnBeforePopup
+Subject: [PATCH] browser: add popup_id parameter to OnBeforePopup
 
-Introduced in CEF by e513077.
+Introduced in chromiumembedded/cef@e513077.
 ---
  src/browser.cxx               | 1 +
  src/browser.hxx               | 1 +
