@@ -44,9 +44,7 @@ PATCHES=(
 )
 
 src_unpack() {
-	if [[ -n ${A} ]]; then
-		unpack ${A}
-	fi
+	default_src_unpack
 	mv "${WORKDIR}/cef_binary_${CEF_VERSION}_linux64_minimal" "${S}/cef/dist" || die
 }
 
