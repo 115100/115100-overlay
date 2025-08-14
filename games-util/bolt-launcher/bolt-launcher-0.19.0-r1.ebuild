@@ -10,7 +10,7 @@ DESCRIPTION="An alternative launcher for your favourite MMO."
 HOMEPAGE="https://github.com/Adamcake/Bolt"
 
 # CEF distributions are used because Gentoo does not package them. I'm not compiling these from source either.
-CEF_VERSION="138.0.17+gac9b751+chromium-138.0.7204.97" # Grab from https://cef-builds.spotifycdn.com/index.html#linux64
+CEF_VERSION="139.0.17+g6c347eb+chromium-139.0.7258.31" # Grab from https://cef-builds.spotifycdn.com/index.html#linux64
 SRC_URI="
 	https://github.com/Adamcake/Bolt/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz
 	https://cef-builds.spotifycdn.com/cef_binary_${CEF_VERSION}_linux64_minimal.tar.bz2
