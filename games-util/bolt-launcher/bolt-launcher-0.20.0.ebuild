@@ -9,13 +9,7 @@ inherit cmake lua-single
 DESCRIPTION="An alternative launcher for your favourite MMO."
 HOMEPAGE="https://github.com/Adamcake/Bolt"
 
-# CEF distributions are used because Gentoo does not package them. I'm not compiling these from source either.
-# Grab from https://cef-builds.spotifycdn.com/index.html#linux64
-CEF_VERSION="141.0.7+ga5714cc+chromium-141.0.7390.108"
-SRC_URI="
-	https://github.com/Adamcake/Bolt/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz
-	https://cef-builds.spotifycdn.com/cef_binary_${CEF_VERSION}_linux64_minimal.tar.bz2
-"
+SRC_URI="https://github.com/Adamcake/Bolt/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/Bolt-${PV}"
 
 LICENSE="AGPL-3"
@@ -34,6 +28,7 @@ RDEPEND="
 	dev-libs/miniz
 	dev-libs/openssl
 	media-libs/libspng
+	net-libs/cef
 	x11-libs/libX11
 	x11-libs/libxcb
 	${LUA_DEPS}
@@ -48,20 +43,20 @@ PATCHES=(
 	"${FILESDIR}/0006-cmake-use-system-openssl.patch"
 )
 
-src_unpack() {
-	default_src_unpack
-	mv "${WORKDIR}/cef_binary_${CEF_VERSION}_linux64_minimal" "${S}/cef/dist" || die
-}
-
 src_configure() {
+	local CEF_LIB_DIR=/usr/lib64/cef
+
 	local CMAKE_BUILD_TYPE=Release
 	local mycmakeargs=(
-		-DBOLT_CEF_INCLUDEPATH="${S}/cef/dist"
 		-DCMAKE_INSTALL_PREFIX=/
 		-DBOLT_BINDIR=usr/bin
 		-DBOLT_LIBDIR=usr/lib64
 		-DBOLT_SHAREDIR=usr/share
 		-DBUILD_SHARED_LIBS=no
+		-DBOLT_SKIP_RPATH=yes
+		-DBOLT_CEF_RESOURCEDIR_OVERRIDE=${CEF_LIB_DIR}
+		-DBOLT_LIBCEF_DIRECTORY=${CEF_LIB_DIR}
+		-DCMAKE_INSTALL_RPATH=${CEF_LIB_DIR}
 	)
 	cmake_src_configure
 }
