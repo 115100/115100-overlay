@@ -31,6 +31,7 @@ RDEPEND="
 	dev-lang/luajit
 	dev-libs/hashmap-c
 	dev-libs/libfmt
+	dev-libs/miniz
 	media-libs/libspng
 	x11-libs/libX11
 	x11-libs/libxcb
@@ -42,6 +43,7 @@ PATCHES=(
 	"${FILESDIR}/0002-cmake-use-system-libfmt.patch"
 	"${FILESDIR}/0003-cmake-use-system-libspng.patch"
 	"${FILESDIR}/0004-cmake-use-system-hashmap.patch"
+	"${FILESDIR}/0005-cmake-use-system-miniz.patch"
 )
 
 src_unpack() {

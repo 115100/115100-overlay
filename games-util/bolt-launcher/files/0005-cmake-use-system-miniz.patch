@@ -1,0 +1,79 @@
+From b07136df0be58c2bacfb483a19ab1a010a2b8103 Mon Sep 17 00:00:00 2001
+From: 115100 <git@three-sigma.org>
+Date: Mon, 20 Oct 2025 13:23:45 +0100
+Subject: [PATCH] cmake: use system miniz
+
+---
+ CMakeLists.txt             | 10 +++++++---
+ src/library/CMakeLists.txt |  9 ++++++---
+ 2 files changed, 13 insertions(+), 6 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c480445..9a728c1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -429,15 +429,19 @@ endif()
+ 
+ # compile an auto-generator, then use it to auto-generate a C++ file containing icon data
+ set(BOLT_ICON_DIR "${CMAKE_CURRENT_SOURCE_DIR}/icon")
+-add_executable(icon_gen icon/generator.cxx src/miniz/miniz.c)
++add_executable(icon_gen icon/generator.cxx)
+ if(UNIX AND NOT APPLE)
+     find_package(PkgConfig REQUIRED)
++
+     pkg_check_modules(SPNG REQUIRED IMPORTED_TARGET spng)
+     target_link_libraries(icon_gen PUBLIC PkgConfig::SPNG)
++
++    pkg_check_modules(MINIZ REQUIRED IMPORTED_TARGET miniz)
++    target_link_libraries(icon_gen PUBLIC PkgConfig::MINIZ)
+ elseif(WIN32)
+-    add_executable(icon_gen modules/spng/spng/spng.c)
++    add_executable(icon_gen modules/spng/spng/spng.c src/miniz/miniz.c)
++    target_include_directories(icon_gen PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/miniz")
+ endif()
+-target_include_directories(icon_gen PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/miniz")
+ target_compile_definitions(icon_gen PUBLIC SPNG_STATIC=1 SPNG_USE_MINIZ=1)
+ set_target_properties(icon_gen PROPERTIES CXX_STANDARD 20 CXX_EXTENSIONS OFF)
+ add_custom_command(
+diff --git a/src/library/CMakeLists.txt b/src/library/CMakeLists.txt
+index ea0d05b..2abb03c 100644
+--- a/src/library/CMakeLists.txt
++++ b/src/library/CMakeLists.txt
+@@ -7,19 +7,21 @@ set(LIBRARY_IPC_OS_SPECIFIC "${CMAKE_CURRENT_SOURCE_DIR}/ipc_posix.c" PARENT_SCO
+ 
+ if(UNIX AND NOT APPLE)
+     add_library(${BOLT_PLUGIN_LIB_NAME} SHARED so/main.c plugin/plugin.c plugin/plugin_api.c gl.c
+-    rwlock/rwlock_posix.c ipc_posix.c plugin/plugin_posix.c ../miniz/miniz.c ../sha256/sha256.c)
++    rwlock/rwlock_posix.c ipc_posix.c plugin/plugin_posix.c ../sha256/sha256.c)
+ 
+     find_package(PkgConfig REQUIRED)
+ 
+     pkg_check_modules(LUAJIT REQUIRED IMPORTED_TARGET luajit)
+     target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC PkgConfig::LUAJIT)
+ 
++    pkg_check_modules(MINIZ REQUIRED IMPORTED_TARGET miniz)
++    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC PkgConfig::MINIZ)
++
+     pkg_check_modules(SPNG REQUIRED IMPORTED_TARGET spng)
+     target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC PkgConfig::SPNG)
+ 
+     target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC hashmap)
+ 
+-    target_include_directories(${BOLT_PLUGIN_LIB_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../miniz")
+     install(TARGETS ${BOLT_PLUGIN_LIB_NAME} DESTINATION "${BOLT_LIBDIR}")
+ endif()
+ if (WIN32)
+@@ -71,8 +73,9 @@ if (WIN32)
+         target_compile_options(stub_inject_generator PUBLIC ${BOLT_WINDOWS_NONMSVC_OPTIONS})
+         target_link_options(stub_inject_generator PUBLIC ${BOLT_WINDOWS_NONMSVC_LINKOPTIONS})
+     endif()
++    target_include_directories(${BOLT_PLUGIN_LIB_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/miniz")
+ endif()
+-target_include_directories(${BOLT_PLUGIN_LIB_NAME} PUBLIC "${CEF_ROOT}" "${CMAKE_CURRENT_SOURCE_DIR}/src/miniz")
++target_include_directories(${BOLT_PLUGIN_LIB_NAME} PUBLIC "${CEF_ROOT}")
+ target_compile_definitions(${BOLT_PLUGIN_LIB_NAME} PUBLIC SPNG_STATIC=1 SPNG_USE_MINIZ=1)
+ if(MSVC)
+     target_compile_definitions(${BOLT_PLUGIN_LIB_NAME} PUBLIC _USE_MATH_DEFINES=1)
+-- 
+2.51.0
+
