@@ -32,6 +32,7 @@ RDEPEND="
 	dev-libs/hashmap-c
 	dev-libs/libfmt
 	dev-libs/miniz
+	dev-libs/openssl
 	media-libs/libspng
 	x11-libs/libX11
 	x11-libs/libxcb
@@ -44,6 +45,7 @@ PATCHES=(
 	"${FILESDIR}/0003-cmake-use-system-libspng.patch"
 	"${FILESDIR}/0004-cmake-use-system-hashmap.patch"
 	"${FILESDIR}/0005-cmake-use-system-miniz.patch"
+	"${FILESDIR}/0006-cmake-use-system-openssl.patch"
 )
 
 src_unpack() {
