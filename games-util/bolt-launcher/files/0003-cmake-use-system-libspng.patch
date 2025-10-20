@@ -1,4 +1,4 @@
-From ae99d4b00702f5c8d15bfddf1fd8ebc17f273f20 Mon Sep 17 00:00:00 2001
+From 3d70d24bb8aa01c006c490dead80fad22bea5b29 Mon Sep 17 00:00:00 2001
 From: 115100 <git@three-sigma.org>
 Date: Wed, 2 Jul 2025 17:02:37 +0100
 Subject: [PATCH] cmake: use system libspng
@@ -11,10 +11,10 @@ Subject: [PATCH] cmake: use system libspng
  4 files changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 9073e40..98cdd6b 100644
+index 1e9a9ff..6096f05 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -369,7 +369,8 @@ endif()
+@@ -429,7 +429,8 @@ endif()
  
  # compile an auto-generator, then use it to auto-generate a C++ file containing icon data
  set(BOLT_ICON_DIR "${CMAKE_CURRENT_SOURCE_DIR}/icon")
@@ -39,22 +39,26 @@ index 7d9de1c..b59d698 100644
  #include <string.h>
  
 diff --git a/src/library/CMakeLists.txt b/src/library/CMakeLists.txt
-index e215d6b..960b0e9 100644
+index cc20c88..d358a48 100644
 --- a/src/library/CMakeLists.txt
 +++ b/src/library/CMakeLists.txt
-@@ -8,8 +8,8 @@ set(LIBRARY_IPC_OS_SPECIFIC "${CMAKE_CURRENT_SOURCE_DIR}/ipc_posix.c" PARENT_SCO
+@@ -8,12 +8,12 @@ set(LIBRARY_IPC_OS_SPECIFIC "${CMAKE_CURRENT_SOURCE_DIR}/ipc_posix.c" PARENT_SCO
  if(UNIX AND NOT APPLE)
      add_library(${BOLT_PLUGIN_LIB_NAME} SHARED so/main.c plugin/plugin.c plugin/plugin_api.c gl.c
      rwlock/rwlock_posix.c ipc_posix.c plugin/plugin_posix.c ../../modules/hashmap/hashmap.c
 -    ../miniz/miniz.c ../sha256/sha256.c ../../modules/spng/spng/spng.c)
--    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} luajit-5.1)
 +    ../miniz/miniz.c ../sha256/sha256.c)
-+    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} luajit-5.1 spng)
-     target_include_directories(${BOLT_PLUGIN_LIB_NAME} PUBLIC "${BOLT_LUAJIT_INCLUDE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/../miniz")
+ 
+     find_package(PkgConfig REQUIRED)
+ 
+     pkg_check_modules(LUAJIT REQUIRED IMPORTED_TARGET luajit)
+-    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC PkgConfig::LUAJIT)
++    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC PkgConfig::LUAJIT spng)
+ 
+     target_include_directories(${BOLT_PLUGIN_LIB_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../miniz")
      install(TARGETS ${BOLT_PLUGIN_LIB_NAME} DESTINATION "${BOLT_LIBDIR}")
- endif()
 diff --git a/src/library/plugin/plugin_api.c b/src/library/plugin/plugin_api.c
-index d4a7057..05c19a0 100644
+index 5a9f614..0bcc565 100644
 --- a/src/library/plugin/plugin_api.c
 +++ b/src/library/plugin/plugin_api.c
 @@ -4,10 +4,10 @@
@@ -70,5 +74,5 @@ index d4a7057..05c19a0 100644
  #include <time.h>
  
 -- 
-2.49.0
+2.51.0
 

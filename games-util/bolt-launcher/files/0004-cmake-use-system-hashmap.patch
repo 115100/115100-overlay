@@ -1,4 +1,4 @@
-From 131947b4e7964074aebaae8d46d3a2d0ad52ebda Mon Sep 17 00:00:00 2001
+From 1128989df2d49ff94237d87ef33cc8e14b891ea7 Mon Sep 17 00:00:00 2001
 From: 115100 <git@three-sigma.org>
 Date: Wed, 2 Jul 2025 17:35:50 +0100
 Subject: [PATCH] cmake: use system hashmap
@@ -12,23 +12,27 @@ Subject: [PATCH] cmake: use system hashmap
  5 files changed, 6 insertions(+), 8 deletions(-)
 
 diff --git a/src/library/CMakeLists.txt b/src/library/CMakeLists.txt
-index 960b0e9..ac23f2a 100644
+index d358a48..2e8fa4a 100644
 --- a/src/library/CMakeLists.txt
 +++ b/src/library/CMakeLists.txt
-@@ -7,9 +7,8 @@ set(LIBRARY_IPC_OS_SPECIFIC "${CMAKE_CURRENT_SOURCE_DIR}/ipc_posix.c" PARENT_SCO
+@@ -7,13 +7,12 @@ set(LIBRARY_IPC_OS_SPECIFIC "${CMAKE_CURRENT_SOURCE_DIR}/ipc_posix.c" PARENT_SCO
  
  if(UNIX AND NOT APPLE)
      add_library(${BOLT_PLUGIN_LIB_NAME} SHARED so/main.c plugin/plugin.c plugin/plugin_api.c gl.c
 -    rwlock/rwlock_posix.c ipc_posix.c plugin/plugin_posix.c ../../modules/hashmap/hashmap.c
 -    ../miniz/miniz.c ../sha256/sha256.c)
--    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} luajit-5.1 spng)
 +    rwlock/rwlock_posix.c ipc_posix.c plugin/plugin_posix.c ../miniz/miniz.c ../sha256/sha256.c)
-+    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} hashmap luajit-5.1 spng)
-     target_include_directories(${BOLT_PLUGIN_LIB_NAME} PUBLIC "${BOLT_LUAJIT_INCLUDE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/../miniz")
+ 
+     find_package(PkgConfig REQUIRED)
+ 
+     pkg_check_modules(LUAJIT REQUIRED IMPORTED_TARGET luajit)
+-    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC PkgConfig::LUAJIT spng)
++    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC PkgConfig::LUAJIT hashmap spng)
+ 
+     target_include_directories(${BOLT_PLUGIN_LIB_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../miniz")
      install(TARGETS ${BOLT_PLUGIN_LIB_NAME} DESTINATION "${BOLT_LIBDIR}")
- endif()
 diff --git a/src/library/gl.c b/src/library/gl.c
-index 9679c52..cf24276 100644
+index c18b222..6a5da9c 100644
 --- a/src/library/gl.c
 +++ b/src/library/gl.c
 @@ -1,8 +1,8 @@
@@ -42,7 +46,7 @@ index 9679c52..cf24276 100644
  #include <stdio.h>
  #include <stdlib.h>
 diff --git a/src/library/plugin/plugin.c b/src/library/plugin/plugin.c
-index 669af3a..c61ba7c 100644
+index a4cd933..9bddfdf 100644
 --- a/src/library/plugin/plugin.c
 +++ b/src/library/plugin/plugin.c
 @@ -3,8 +3,8 @@
@@ -56,7 +60,7 @@ index 669af3a..c61ba7c 100644
  #include <lualib.h>
  #include <stdlib.h>
 diff --git a/src/library/plugin/plugin_api.c b/src/library/plugin/plugin_api.c
-index 05c19a0..1768127 100644
+index 0bcc565..fe8d310 100644
 --- a/src/library/plugin/plugin_api.c
 +++ b/src/library/plugin/plugin_api.c
 @@ -3,8 +3,7 @@
@@ -70,7 +74,7 @@ index 05c19a0..1768127 100644
  #include <math.h>
  #include <spng.h>
 diff --git a/src/library/so/main.c b/src/library/so/main.c
-index 1369031..638a7b3 100644
+index e8c1738..7106b6d 100644
 --- a/src/library/so/main.c
 +++ b/src/library/so/main.c
 @@ -3,6 +3,7 @@
@@ -90,5 +94,5 @@ index 1369031..638a7b3 100644
  // -D BOLT_LIBRARY_VERBOSE=1
  #if defined(VERBOSE)
 -- 
-2.49.0
+2.51.0
 
