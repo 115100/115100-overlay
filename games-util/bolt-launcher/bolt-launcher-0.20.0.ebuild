@@ -57,7 +57,6 @@ src_configure() {
 	local CMAKE_BUILD_TYPE=Release
 	local mycmakeargs=(
 		-DBOLT_CEF_INCLUDEPATH="${S}/cef/dist"
-		-DBOLT_LUAJIT_INCLUDE_DIR="$(lua_get_include_dir)"
 		-DCMAKE_INSTALL_PREFIX=/
 		-DBOLT_BINDIR=usr/bin
 		-DBOLT_LIBDIR=usr/lib64
