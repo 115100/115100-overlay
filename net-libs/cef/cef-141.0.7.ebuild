@@ -10,7 +10,7 @@ HOMEPAGE="https://bitbucket.org/chromiumembedded/cef"
 CEF_VERSION="141.0.7+ga5714cc+chromium-141.0.7390.108"
 SRC_URI="https://cef-builds.spotifycdn.com/cef_binary_${CEF_VERSION}_linux64_minimal.tar.bz2 -> ${P}.tar.bz2"
 
-LICENSE="BSD-3"
+LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 
