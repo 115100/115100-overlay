@@ -1,21 +1,21 @@
-From 1128989df2d49ff94237d87ef33cc8e14b891ea7 Mon Sep 17 00:00:00 2001
+From 4195de2c969825f5e75a7f524e62f63b5a2dbb81 Mon Sep 17 00:00:00 2001
 From: 115100 <git@three-sigma.org>
 Date: Wed, 2 Jul 2025 17:35:50 +0100
 Subject: [PATCH] cmake: use system hashmap
 
 ---
- src/library/CMakeLists.txt      | 5 ++---
+ src/library/CMakeLists.txt      | 5 +++--
  src/library/gl.c                | 2 +-
  src/library/plugin/plugin.c     | 2 +-
  src/library/plugin/plugin_api.c | 3 +--
  src/library/so/main.c           | 2 +-
- 5 files changed, 6 insertions(+), 8 deletions(-)
+ 5 files changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/src/library/CMakeLists.txt b/src/library/CMakeLists.txt
-index d358a48..2e8fa4a 100644
+index 613cd9f..ea0d05b 100644
 --- a/src/library/CMakeLists.txt
 +++ b/src/library/CMakeLists.txt
-@@ -7,13 +7,12 @@ set(LIBRARY_IPC_OS_SPECIFIC "${CMAKE_CURRENT_SOURCE_DIR}/ipc_posix.c" PARENT_SCO
+@@ -7,8 +7,7 @@ set(LIBRARY_IPC_OS_SPECIFIC "${CMAKE_CURRENT_SOURCE_DIR}/ipc_posix.c" PARENT_SCO
  
  if(UNIX AND NOT APPLE)
      add_library(${BOLT_PLUGIN_LIB_NAME} SHARED so/main.c plugin/plugin.c plugin/plugin_api.c gl.c
@@ -25,12 +25,15 @@ index d358a48..2e8fa4a 100644
  
      find_package(PkgConfig REQUIRED)
  
-     pkg_check_modules(LUAJIT REQUIRED IMPORTED_TARGET luajit)
--    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC PkgConfig::LUAJIT spng)
-+    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC PkgConfig::LUAJIT hashmap spng)
+@@ -18,6 +17,8 @@ if(UNIX AND NOT APPLE)
+     pkg_check_modules(SPNG REQUIRED IMPORTED_TARGET spng)
+     target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC PkgConfig::SPNG)
  
++    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC hashmap)
++
      target_include_directories(${BOLT_PLUGIN_LIB_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../miniz")
      install(TARGETS ${BOLT_PLUGIN_LIB_NAME} DESTINATION "${BOLT_LIBDIR}")
+ endif()
 diff --git a/src/library/gl.c b/src/library/gl.c
 index c18b222..6a5da9c 100644
 --- a/src/library/gl.c
