@@ -80,7 +80,7 @@ src_unpack() {
 }
 
 src_prepare() {
-    # Copied logic from https://src.fedoraproject.org/rpms/cef/blob/4b5a9c1270354ff1025233a4e4a53977e68a379b/f/cef.spec#_1532-1538
+	# Copied logic from https://src.fedoraproject.org/rpms/cef/blob/4b5a9c1/f/cef.spec#_1532-1538
 	sed -i -e '/\.\.\/include/d' "${S}/libcef_dll/CMakeLists.txt" || die
 	sed \
 		-e "s,__CEF_INCLUDE__,${CEF_INCLUDE_DIR}," \
