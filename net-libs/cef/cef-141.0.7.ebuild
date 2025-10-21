@@ -22,60 +22,34 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 
-# Copied almost wholesale from www-client/chromium
+# Copied from net-im/discord
 RDEPEND="
-	>=dev-libs/libxml2-2.12.4:=[icu]
-	dev-libs/nspr:=
-	>=dev-libs/nss-3.26:=
-	dev-libs/libxslt:=
-	media-libs/fontconfig:=
-	>=media-libs/freetype-2.11.0-r1:=
-	>=media-libs/harfbuzz-3:0=[icu(-)]
-	media-libs/libjpeg-turbo:=
-	media-libs/libpng:=[-apng(-)]
-	>=media-libs/libwebp-0.4.0:=
-	media-libs/mesa:=[gbm(+)]
-	>=media-libs/openh264-1.6.0:=
-	dev-libs/glib:2
-	>=media-libs/alsa-lib-1.0.19:=
-	sys-apps/pciutils:=
-	x11-base/xorg-proto:=
-	x11-libs/libX11:=
-	x11-libs/libxcb:=
-	x11-libs/libXext:=
-	x11-libs/libxkbcommon:=
-	dev-libs/libffi:=
-	dev-libs/wayland:=
-	media-video/pipewire:=
-	app-arch/bzip2:=
-	dev-libs/expat:=
-	net-misc/curl[ssl]
-	sys-apps/dbus:=
-	media-libs/flac:=
-	sys-libs/zlib:=[minizip]
 	>=app-accessibility/at-spi2-core-2.46.0:2
-	media-libs/mesa:=
-	virtual/udev
-	x11-libs/cairo:=
+	dev-libs/expat
+	dev-libs/glib:2
+	dev-libs/nspr
+	dev-libs/nss
+	media-libs/alsa-lib
+	media-libs/fontconfig
+	media-libs/mesa[gbm(+)]
+	net-print/cups
+	sys-apps/dbus
+	sys-apps/util-linux
+	x11-libs/cairo
+	x11-libs/libdrm
 	x11-libs/gdk-pixbuf:2
-	x11-libs/pango:=
-	>=net-print/cups-1.3.11:=
-	dev-qt/qtbase:6[gui,widgets]
-	x11-libs/libXcomposite:=
-	x11-libs/libXcursor:=
-	x11-libs/libXdamage:=
-	x11-libs/libXfixes:=
-	>=x11-libs/libXi-1.6.0:=
-	x11-libs/libXrandr:=
-	x11-libs/libXrender:=
-	x11-libs/libXtst:=
-	x11-libs/libxshmfence:=
-	|| (
-		x11-libs/gtk+:3
-		gui-libs/gtk:4
-	)
-	dev-qt/qtbase:6
-	virtual/ttf-fonts
+	x11-libs/gtk+:3
+	x11-libs/libX11
+	x11-libs/libXScrnSaver
+	x11-libs/libXcomposite
+	x11-libs/libXdamage
+	x11-libs/libXext
+	x11-libs/libXfixes
+	x11-libs/libXrandr
+	x11-libs/libxcb
+	x11-libs/libxkbcommon
+	x11-libs/libxshmfence
+	x11-libs/pango
 "
 
 CEF_INCLUDE_DIR=/usr/include/cef
