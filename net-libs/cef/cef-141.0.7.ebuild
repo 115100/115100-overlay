@@ -86,19 +86,16 @@ src_install() {
 	insinto ${CEF_SRC_DIR}
 	doins -r libcef_dll
 
+	exeinto ${CEF_LIB_DIR}
+	doexe Release/*.so Release/*.so.*  Release/chrome-sandbox
+	fowners root "${CEF_LIB_DIR}/chrome-sandbox"
+	fperms 4711 "${CEF_LIB_DIR}/chrome-sandbox"
+
 	insinto ${CEF_LIB_DIR}
+	doins Release/*.bin Release/vk_swiftshader_icd.json
 	doins -r Resources/locales
 	doins Resources/*.dat
 	doins Resources/*.pak
-
-	exeinto ${CEF_LIB_DIR}
-	# No dolib.so here because it nests a lib64 dir
-	doexe Release/*.so
-	doexe Release/*.so.1
-	doexe Release/chrome-sandbox
-	insinto ${CEF_LIB_DIR}
-	doins Release/*.bin
-	doins Release/vk_swiftshader_icd.json
 
 	insinto ${CEF_INCLUDE_DIR}
 	doins -r include
