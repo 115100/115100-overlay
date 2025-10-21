@@ -18,6 +18,8 @@ KEYWORDS="amd64"
 BDEPEND="app-text/asciidoc
 	verify-sig? ( sec-keys/openpgp-keys-foxboron )"
 
+RDEPEND="sys-apps/pcsc-lite"
+
 VERIFY_SIG_OPENPGP_KEY_PATH="/usr/share/openpgp-keys/foxboron.asc"
 
 src_unpack() {
