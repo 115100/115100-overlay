@@ -3,6 +3,14 @@
 
 EAPI=8
 
+CHROMIUM_LANGS="
+	af am ar bg bn ca cs da de el en-GB en-US es es-419 et fa fi fil fr gu he hi
+	hr hu id it ja kn ko lt lv ml mr ms nb nl pl pt-BR pt-PT ro ru sk sl sr sv
+	sw ta te th tr uk ur vi zh-CN zh-TW
+"
+
+inherit chromium-2
+
 DESCRIPTION="A simple framework for embedding Chromium-based browsers in other applications."
 HOMEPAGE="https://bitbucket.org/chromiumembedded/cef"
 
@@ -74,12 +82,22 @@ CEF_INCLUDE_DIR=/usr/include/cef
 CEF_LIB_DIR=/usr/lib64/cef
 CEF_SRC_DIR=/usr/src/${P}
 
+src_configure() {
+	default
+	chromium_suid_sandbox_check_kernel_config
+}
+
 src_unpack() {
 	default_src_unpack
 	mv "${WORKDIR}/cef_binary_${CEF_VERSION}_linux64_minimal" "${S}" || die
 }
 
 src_prepare() {
+	# cleanup languages
+	pushd "Resources/locales/" >/dev/null || die "location change for language cleanup failed"
+	chromium_remove_language_paks
+	popd >/dev/null || die "location reset for language cleanup failed"
+
 	# Copied logic from https://src.fedoraproject.org/rpms/cef/blob/4b5a9c1/f/cef.spec#_1532-1538
 	sed -i -e '/\.\.\/include/d' "${S}/libcef_dll/CMakeLists.txt" || die
 	sed \
