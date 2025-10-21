@@ -14,7 +14,7 @@ LICENSE="OFL-1.1"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~ppc64 ~x86"
 
-DEPEND="app-arch/p7zip"
+BDEPEND="app-arch/7zip"
 
 FONT_S="${S}"
 FONT_SUFFIX="ttc"
