@@ -25,15 +25,17 @@ REQUIRED_USE="
 RDEPEND="
 	app-arch/libarchive
 	dev-lang/luajit
-	dev-libs/hashmap-c
 	dev-libs/libfmt
 	dev-libs/miniz
-	dev-libs/openssl
 	media-libs/libspng
 	net-libs/cef
 	x11-libs/libX11
 	x11-libs/libxcb
-	plugins? ( ${LUA_DEPS} )
+	plugins? (
+		dev-libs/hashmap-c
+		dev-libs/openssl
+		${LUA_DEPS}
+	)
 "
 
 PATCHES=(
