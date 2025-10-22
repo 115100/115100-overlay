@@ -16,8 +16,10 @@ LICENSE="AGPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 
+IUSE="plugins"
+
 REQUIRED_USE="
-	${LUA_REQUIRED_USE}
+	plugins? ( ${LUA_REQUIRED_USE} )
 "
 
 RDEPEND="
@@ -31,7 +33,7 @@ RDEPEND="
 	net-libs/cef
 	x11-libs/libX11
 	x11-libs/libxcb
-	${LUA_DEPS}
+	plugins? ( ${LUA_DEPS} )
 "
 
 PATCHES=(
@@ -55,6 +57,7 @@ src_configure() {
 		-DBUILD_SHARED_LIBS=no
 		-DBOLT_CEF_RESOURCEDIR_OVERRIDE=${CEF_LIB_DIR}
 		-DBOLT_LIBCEF_DIRECTORY=${CEF_LIB_DIR}
+		-DBOLT_SKIP_LIBRARIES=$(usex plugins no yes)
 	)
 	cmake_src_configure
 }
