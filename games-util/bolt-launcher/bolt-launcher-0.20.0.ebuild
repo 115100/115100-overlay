@@ -41,6 +41,7 @@ PATCHES=(
 	"${FILESDIR}/0004-cmake-use-system-hashmap.patch"
 	"${FILESDIR}/0005-cmake-use-system-miniz.patch"
 	"${FILESDIR}/0006-cmake-use-system-openssl.patch"
+	"${FILESDIR}/0007-cmake-add-CEF-lib-directory-to-install-RPATH.patch"
 )
 
 src_configure() {
@@ -53,10 +54,8 @@ src_configure() {
 		-DBOLT_LIBDIR=usr/lib64
 		-DBOLT_SHAREDIR=usr/share
 		-DBUILD_SHARED_LIBS=no
-		-DBOLT_SKIP_RPATH=yes
 		-DBOLT_CEF_RESOURCEDIR_OVERRIDE=${CEF_LIB_DIR}
 		-DBOLT_LIBCEF_DIRECTORY=${CEF_LIB_DIR}
-		-DCMAKE_INSTALL_RPATH=${CEF_LIB_DIR}
 	)
 	cmake_src_configure
 }
