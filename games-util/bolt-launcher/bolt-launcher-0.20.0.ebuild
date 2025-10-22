@@ -41,7 +41,6 @@ PATCHES=(
 	"${FILESDIR}/0004-cmake-use-system-hashmap.patch"
 	"${FILESDIR}/0005-cmake-use-system-miniz.patch"
 	"${FILESDIR}/0006-cmake-use-system-openssl.patch"
-	"${FILESDIR}/0007-cmake-add-CEF-lib-directory-to-install-RPATH.patch"
 )
 
 src_configure() {
