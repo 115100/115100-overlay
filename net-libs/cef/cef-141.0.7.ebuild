@@ -90,6 +90,8 @@ src_install() {
 		doexe Release/${exc} || die
 	done
 	fperms 4755 "${DESTDIR}/Release/chrome-sandbox"
+	insinto ${DESTDIR}/Release
+	doins Release/*.bin Release/vk_swiftshader_icd.json
 
 	insinto /usr/share/cmake/Modules
 	doins "${T}/FindCEF.cmake"
