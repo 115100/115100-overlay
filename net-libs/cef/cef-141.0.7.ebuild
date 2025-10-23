@@ -52,9 +52,7 @@ RDEPEND="
 	x11-libs/pango
 "
 
-CEF_INCLUDE_DIR=/usr/include/cef
-CEF_LIB_DIR=/usr/lib64/cef
-CEF_SRC_DIR=/usr/src/${P}
+DESTDIR="/opt/${PN}"
 
 src_configure() {
 	default
@@ -72,40 +70,33 @@ src_prepare() {
 	chromium_remove_language_paks
 	popd >/dev/null || die "location reset for language cleanup failed"
 
-	# Copied logic from https://src.fedoraproject.org/rpms/cef/blob/4b5a9c1/f/cef.spec#_1532-1538
-	sed -i -e '/\.\.\/include/d' "${S}/libcef_dll/CMakeLists.txt" || die
 	sed \
-		-e "s,__CEF_INCLUDE__,${CEF_INCLUDE_DIR}," \
-		-e "s,__CEF_LIB__,${CEF_LIB_DIR}," \
-		-e "s,__CEF_SRC__,${CEF_SRC_DIR}," \
+		-e "s,@CEF_ROOT@,${DESTDIR}," \
 		"${FILESDIR}/FindCEF.cmake" > "${T}/FindCEF.cmake" || die
 	default
 }
 
 src_install() {
-	insinto ${CEF_SRC_DIR}
-	doins -r libcef_dll
-
-	exeinto ${CEF_LIB_DIR}
-	doexe Release/*.so Release/*.so.*  Release/chrome-sandbox
-	fowners root "${CEF_LIB_DIR}/chrome-sandbox"
-	fperms 4711 "${CEF_LIB_DIR}/chrome-sandbox"
-
-	insinto ${CEF_LIB_DIR}
-	doins Release/*.bin Release/vk_swiftshader_icd.json
-	doins -r Resources/locales
-	doins Resources/*.dat
-	doins Resources/*.pak
-
-	insinto ${CEF_INCLUDE_DIR}
+	insinto ${DESTDIR}
+	doins -r Resources
 	doins -r include
+	doins -r libcef_dll
+	doins CMakeLists.txt
+	insinto ${DESTDIR}/cmake
+	doins cmake/cef_{macros,variables}.cmake
+
+	exeinto ${DESTDIR}/Release
+	for exc in chrome-sandbox libcef.so libEGL.so libGLESv2.so libvk_swiftshader.so libvulkan.so.1; do
+		doexe Release/${exc} || die
+	done
+	fperms 4755 "${DESTDIR}/Release/chrome-sandbox"
 
 	insinto /usr/share/cmake/Modules
 	doins "${T}/FindCEF.cmake"
 
 	local revord=$(( 9999999 - $(printf "%03d%02d%02d" "$(ver_cut 1)" "$(ver_cut 2)" "$(ver_cut 3)")))
 	newenvd - "99cef${revord}" <<-EOF
-		LDPATH=${EPREFIX}${CEF_LIB_DIR}
+		LDPATH=${EPREFIX}${DESTDIR}/Release
 	EOF
 
 	dodoc README.txt

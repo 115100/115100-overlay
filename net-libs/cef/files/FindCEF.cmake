@@ -1,107 +1,44 @@
-include(FindPackageHandleStandardArgs)
+# Copyright (c) 2008-2020 Marshall A. Greenblatt. Portions Copyright (c)
+# 2006-2009 Google Inc. All rights reserved.
+# 2016 The Chromium Embedded Framework Authors. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#
+#    * Redistributions of source code must retain the above copyright
+# notice, this list of conditions and the following disclaimer.
+#    * Redistributions in binary form must reproduce the above
+# copyright notice, this list of conditions and the following disclaimer
+# in the documentation and/or other materials provided with the
+# distribution.
+#    * Neither the name of Google Inc. nor the name Chromium Embedded
+# Framework nor the names of its contributors may be used to endorse
+# or promote products derived from this software without specific prior
+# written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-find_path(CEF_INCLUDE_DIR "include/cef_version.h" HINTS __CEF_INCLUDE__)
+#
+# This file is the CEF CMake configuration entry point and should be loaded
+# using `find_package(CEF REQUIRED)`.
+#
 
-find_library(
-  CEF_LIBRARY
-  NAMES libcef.so "Chromium Embedded Framework"
-  NO_DEFAULT_PATH
-  PATHS __CEF_LIB__)
+set(CEF_ROOT @CEF_ROOT@)
+set(_CEF_ROOT ${CEF_ROOT})
+set(_CEF_ROOT_EXPLICIT 1)
 
-find_path(CEF_WRAPPER_SRC_DIR "libcef_dll/CMakeLists.txt" HINTS __CEF_SRC__)
-
-if(NOT CEF_INCLUDE_DIR)
-  message(WARNING "Could NOT find Chromium Embedded Framework library (missing: CEF_INCLUDE_DIR)")
-  set(CEF_FOUND FALSE)
-  return()
-endif()
-
-if(NOT CEF_LIBRARY)
-  message(WARNING "Could NOT find Chromium Embedded Framework library (missing: CEF_LIBRARY)")
-  set(CEF_FOUND FALSE)
-  return()
-endif()
-if(NOT CEF_WRAPPER_SRC_DIR)
-  message(WARNING "Could NOT find Chromium Embedded Framework library (missing: CEF_WRAPPER_SRC_DIR)")
-  set(CEF_FOUND FALSE)
-  return()
-endif()
-
-if(NOT CEF_API_VERSION)
-  set(CEF_API_VERSION CEF_API_VERSION_EXPERIMENTAL CACHE STRING "CEF API version")
-endif()
-
-list(APPEND CEF_COMPILER_FLAGS
-  -fno-strict-aliasing            # Avoid assumptions regarding non-aliasing of objects of different types
-  -fPIC                           # Generate position-independent code for shared libraries
-  -fstack-protector               # Protect some vulnerable functions from stack-smashing (security feature)
-  -funwind-tables                 # Support stack unwinding for backtrace()
-  -fvisibility=hidden             # Give hidden visibility to declarations that are not explicitly marked as visible
-  --param=ssp-buffer-size=4       # Set the minimum buffer size protected by SSP (security feature, related to stack-protector)
-  -pipe                           # Use pipes rather than temporary files for communication between build stages
-  -pthread                        # Use the pthread library
-  -Wall                           # Enable all warnings
-  -Werror                         # Treat warnings as errors
-  -Wno-missing-field-initializers # Don't warn about missing field initializers
-  -Wno-unused-parameter           # Don't warn about unused parameters
-  -Wno-error=comment              # Don't warn about code in comments
-  -Wno-comment                    # Don't warn about code in comments
-  -Wno-deprecated-declarations    # Don't warn about using deprecated methods
-  )
-
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-  list(APPEND CEF_CXX_COMPILER_FLAGS
-    -Wno-attributes             # The cfi-icall attribute is not supported by the GNU C++ compiler
-    -Wno-array-bounds           # Silence "is partly outside array bounds" errors with runtime size check in wrapper
-    -Wno-stringop-overflow      # Silence "overflows the destination" errors with runtime size check in wrapper
-    )
-endif()
-
-if(CEF_INCLUDE_DIR)
-  file(
-    STRINGS
-    "${CEF_INCLUDE_DIR}/include/cef_version.h"
-    _VERSION_STRING
-    REGEX "^.*CEF_VERSION_(MAJOR|MINOR|PATCH)[ \t]+[0-9]+[ \t]*$"
-  )
-  string(REGEX REPLACE ".*CEF_VERSION_MAJOR[ \t]+([0-9]+).*" "\\1" CEF_VERSION_MAJOR "${_VERSION_STRING}")
-  string(REGEX REPLACE ".*CEF_VERSION_MINOR[ \t]+([0-9]+).*" "\\1" CEF_VERSION_MINOR "${_VERSION_STRING}")
-  string(REGEX REPLACE ".*CEF_VERSION_PATCH[ \t]+([0-9]+).*" "\\1" CEF_VERSION_PATCH "${_VERSION_STRING}")
-  set(CEF_VERSION "${CEF_VERSION_MAJOR}.${CEF_VERSION_MINOR}.${CEF_VERSION_PATCH}")
-else()
-  if(NOT CEF_FIND_QUIETLY)
-    message(AUTHOR_WARNING "Failed to find Chromium Embedded Framework version.")
-  endif()
-  set(CEF_VERSION 0.0.0)
-endif()
-
-macro(SET_LIBRARY_TARGET_PROPERTIES target)
-  target_include_directories(${target} PUBLIC ${CEF_INCLUDE_DIR})
-  target_include_directories(${target} PRIVATE ${CEF_WRAPPER_SRC_DIR})
-  target_compile_options(${target} PRIVATE ${CEF_COMPILER_FLAGS} ${CEF_CXX_COMPILER_FLAGS})
-  target_compile_options(${target} PUBLIC "-DCEF_API_VERSION=${CEF_API_VERSION}")
-  set_property(TARGET ${target} PROPERTY POSITION_INDEPENDENT_CODE ON)
-endmacro()
-
-add_subdirectory(${CEF_WRAPPER_SRC_DIR}/libcef_dll libcef_dll_wrapper)
-add_library(CEF::Wrapper ALIAS libcef_dll_wrapper)
-
-message(STATUS "Found Chromium Embedded Framework: ${CEF_LIBRARY};${CEF_INCLUDE_DIR};${CEF_WRAPPER_SRC_DIR} (${CEF_VERSION})")
-
-set(CEF_LIBRARIES CEF::Wrapper CEF::Library)
-set(CEF_INCLUDE_DIRS ${CEF_INCLUDE_DIR})
-
-if(IS_ABSOLUTE "${CEF_LIBRARY}")
-  add_library(CEF::Library UNKNOWN IMPORTED)
-  set_target_properties(CEF::Library PROPERTIES IMPORTED_LOCATION ${CEF_LIBRARY})
-else()
-  add_library(CEF::Library INTERFACE IMPORTED)
-  set_target_properties(CEF::Library PROPERTIES IMPORTED_LIBNAME ${CEF_LIBRARY})
-endif()
-
-set_target_properties(CEF::Library PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${CEF_INCLUDE_DIR}")
-
-find_package_handle_standard_args(CEF
-  REQUIRED_VARS CEF_LIBRARY CEF_INCLUDE_DIR CEF_WRAPPER_SRC_DIR
-  VERSION_VAR CEF_VERSION
-)
+# Execute additional cmake files from the CEF binary distribution.
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${_CEF_ROOT}/cmake")
+include("cef_variables")
+include("cef_macros")
