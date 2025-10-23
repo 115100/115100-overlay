@@ -92,6 +92,10 @@ src_install() {
 	fperms 4755 "${DESTDIR}/Release/chrome-sandbox"
 	insinto ${DESTDIR}/Release
 	doins Release/*.bin Release/vk_swiftshader_icd.json
+	# libcef only looks at its own directory for Resources, so link them there
+	for x in Resources/*; do
+		dosym -r "${DESTDIR}/${x}" "${DESTDIR}/Release/$(basename "${x}")"
+	done
 
 	insinto /usr/share/cmake/Modules
 	doins "${T}/FindCEF.cmake"
