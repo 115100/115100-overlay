@@ -48,7 +48,7 @@ PATCHES=(
 )
 
 src_configure() {
-	local CEF_LIB_DIR=/usr/lib64/cef
+	local CEF_ROOT=/opt/cef
 
 	local CMAKE_BUILD_TYPE=Release
 	local mycmakeargs=(
@@ -57,8 +57,8 @@ src_configure() {
 		-DBOLT_LIBDIR=usr/lib64
 		-DBOLT_SHAREDIR=usr/share
 		-DBUILD_SHARED_LIBS=no
-		-DBOLT_CEF_RESOURCEDIR_OVERRIDE=${CEF_LIB_DIR}
-		-DBOLT_LIBCEF_DIRECTORY=${CEF_LIB_DIR}
+		-DBOLT_CEF_RESOURCEDIR_OVERRIDE=${CEF_ROOT}/Resources
+		-DBOLT_LIBCEF_DIRECTORY=${CEF_ROOT}/Release
 		-DBOLT_SKIP_LIBRARIES=$(usex plugins no yes)
 	)
 	cmake_src_configure
