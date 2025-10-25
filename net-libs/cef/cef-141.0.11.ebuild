@@ -107,10 +107,5 @@ src_install() {
 	insinto /usr/share/cmake/Modules
 	doins "${T}/FindCEF.cmake"
 
-	local revord=$(( 9999999 - $(printf "%03d%02d%02d" "$(ver_cut 1)" "$(ver_cut 2)" "$(ver_cut 3)")))
-	newenvd - "99cef${revord}" <<-EOF
-		LDPATH=${EPREFIX}${DESTDIR}/Release
-	EOF
-
 	dodoc README.txt
 }
