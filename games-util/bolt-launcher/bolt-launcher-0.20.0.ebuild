@@ -22,12 +22,11 @@ REQUIRED_USE="
 	plugins? ( ${LUA_REQUIRED_USE} )
 "
 
-RDEPEND="
+COMMON_DEPEND="
 	app-arch/libarchive
 	dev-libs/libfmt
 	dev-libs/miniz
 	media-libs/libspng
-	net-libs/cef
 	x11-libs/libX11
 	x11-libs/libxcb
 	plugins? (
@@ -37,7 +36,14 @@ RDEPEND="
 	)
 "
 
-DEPEND="${RDEPEND}"
+RDEPEND="${COMMON_DEPEND}"
+DEPEND="
+	${COMMON_DEPEND}
+	net-libs/cef
+"
+BDEPEND="
+	virtual/pkgconfig
+"
 
 PATCHES=(
 	"${FILESDIR}/0001-browser-add-popup_id-parameter-to-OnBeforePopup.patch"
