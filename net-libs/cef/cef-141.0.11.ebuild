@@ -21,7 +21,7 @@ CEF_VERSION="${PV}+g${CEF_HASH}+chromium-${CHROMIUM_VERSION}"
 SRC_URI="https://cef-builds.spotifycdn.com/cef_binary_${CEF_VERSION}_linux64_minimal.tar.bz2 -> ${P}.tar.bz2"
 
 LICENSE="BSD"
-SLOT="0"
+SLOT="0/${PVR}"
 KEYWORDS="~amd64"
 
 # Copied from net-im/discord
