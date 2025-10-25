@@ -55,8 +55,6 @@ PATCHES=(
 )
 
 src_configure() {
-	local CEF_ROOT=/opt/cef
-
 	local CMAKE_BUILD_TYPE=Release
 	local mycmakeargs=(
 		-DBUILD_SHARED_LIBS=no
