@@ -39,7 +39,7 @@ COMMON_DEPEND="
 RDEPEND="${COMMON_DEPEND}"
 DEPEND="
 	${COMMON_DEPEND}
-	net-libs/cef
+	net-libs/cef:=
 "
 BDEPEND="
 	virtual/pkgconfig
