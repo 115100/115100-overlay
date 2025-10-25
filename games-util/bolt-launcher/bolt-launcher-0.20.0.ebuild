@@ -37,6 +37,8 @@ RDEPEND="
 	)
 "
 
+DEPEND="${RDEPEND}"
+
 PATCHES=(
 	"${FILESDIR}/0001-browser-add-popup_id-parameter-to-OnBeforePopup.patch"
 	"${FILESDIR}/0002-cmake-use-system-libfmt.patch"
@@ -51,13 +53,11 @@ src_configure() {
 
 	local CMAKE_BUILD_TYPE=Release
 	local mycmakeargs=(
+		-DBUILD_SHARED_LIBS=no
 		-DCMAKE_INSTALL_PREFIX=/
 		-DBOLT_BINDIR=usr/bin
 		-DBOLT_LIBDIR=usr/lib64
 		-DBOLT_SHAREDIR=usr/share
-		-DBUILD_SHARED_LIBS=no
-		-DBOLT_CEF_RESOURCEDIR_OVERRIDE=${CEF_ROOT}/Resources
-		-DBOLT_LIBCEF_DIRECTORY=${CEF_ROOT}/Release
 		-DBOLT_SKIP_LIBRARIES=$(usex plugins no yes)
 	)
 	cmake_src_configure
