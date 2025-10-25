@@ -18,11 +18,14 @@ HOMEPAGE="https://bitbucket.org/chromiumembedded/cef"
 CEF_HASH="7e73ac4"
 CHROMIUM_VERSION="141.0.7390.123"
 CEF_VERSION="${PV}+g${CEF_HASH}+chromium-${CHROMIUM_VERSION}"
-SRC_URI="https://cef-builds.spotifycdn.com/cef_binary_${CEF_VERSION}_linux64_minimal.tar.bz2 -> ${P}.tar.bz2"
+SRC_URI="
+	amd64? ( https://cef-builds.spotifycdn.com/cef_binary_${CEF_VERSION}_linux64_minimal.tar.bz2 -> ${P}.amd64.tar.bz2 )
+	arm64? ( https://cef-builds.spotifycdn.com/cef_binary_${CEF_VERSION}_linuxarm64_minimal.tar.bz2 -> ${P}.arm64.tar.bz2 )
+"
 
 LICENSE="BSD"
 SLOT="0/${PVR}"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"
 
 # Copied from net-im/discord
 RDEPEND="
@@ -63,7 +66,13 @@ src_configure() {
 
 src_unpack() {
 	default_src_unpack
-	mv "${WORKDIR}/cef_binary_${CEF_VERSION}_linux64_minimal" "${S}" || die
+	if use amd64; then
+		mv "${WORKDIR}/cef_binary_${CEF_VERSION}_linux64_minimal" "${S}" || die
+	elif use arm64; then
+		mv "${WORKDIR}/cef_binary_${CEF_VERSION}_linuxarm64_minimal" "${S}" || die
+	else
+		die "cef only supports amd64 and arm64"
+	fi
 }
 
 src_prepare() {
