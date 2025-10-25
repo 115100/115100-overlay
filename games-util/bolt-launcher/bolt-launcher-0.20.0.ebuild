@@ -24,7 +24,6 @@ REQUIRED_USE="
 
 RDEPEND="
 	app-arch/libarchive
-	dev-lang/luajit
 	dev-libs/libfmt
 	dev-libs/miniz
 	media-libs/libspng
