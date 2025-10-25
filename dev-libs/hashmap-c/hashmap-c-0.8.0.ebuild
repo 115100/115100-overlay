@@ -12,11 +12,11 @@ SRC_URI="
 	https://github.com/tidwall/hashmap.c/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 "
 
+S="${WORKDIR}/hashmap.c-${PV}"
+
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
-
-S="${WORKDIR}/hashmap.c-${PV}"
+KEYWORDS="~amd64 ~arm64"
 
 src_compile() {
 	"$(tc-getCC)" \
