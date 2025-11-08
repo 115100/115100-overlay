@@ -1,4 +1,4 @@
-From b07136df0be58c2bacfb483a19ab1a010a2b8103 Mon Sep 17 00:00:00 2001
+From 876d1ad99039761529fee2f71f5c044ced280c26 Mon Sep 17 00:00:00 2001
 From: 115100 <git@three-sigma.org>
 Date: Mon, 20 Oct 2025 13:23:45 +0100
 Subject: [PATCH] cmake: use system miniz
@@ -9,10 +9,10 @@ Subject: [PATCH] cmake: use system miniz
  2 files changed, 13 insertions(+), 6 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index c480445..9a728c1 100644
+index cd4da6714914..1a0edadf8b4b 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -429,15 +429,19 @@ endif()
+@@ -432,15 +432,19 @@ endif()
  
  # compile an auto-generator, then use it to auto-generate a C++ file containing icon data
  set(BOLT_ICON_DIR "${CMAKE_CURRENT_SOURCE_DIR}/icon")
@@ -36,7 +36,7 @@ index c480445..9a728c1 100644
  set_target_properties(icon_gen PROPERTIES CXX_STANDARD 20 CXX_EXTENSIONS OFF)
  add_custom_command(
 diff --git a/src/library/CMakeLists.txt b/src/library/CMakeLists.txt
-index ea0d05b..2abb03c 100644
+index ea0d05b39ab5..2abb03cc10af 100644
 --- a/src/library/CMakeLists.txt
 +++ b/src/library/CMakeLists.txt
 @@ -7,19 +7,21 @@ set(LIBRARY_IPC_OS_SPECIFIC "${CMAKE_CURRENT_SOURCE_DIR}/ipc_posix.c" PARENT_SCO

@@ -1,33 +1,32 @@
-From 4195de2c969825f5e75a7f524e62f63b5a2dbb81 Mon Sep 17 00:00:00 2001
+From 189fc76a92b92197962cef1ad88ee0ba3585a29c Mon Sep 17 00:00:00 2001
 From: 115100 <git@three-sigma.org>
 Date: Wed, 2 Jul 2025 17:35:50 +0100
 Subject: [PATCH] cmake: use system hashmap
 
 ---
- src/library/CMakeLists.txt      | 5 +++--
+ src/library/CMakeLists.txt      | 4 +++-
  src/library/gl.c                | 2 +-
  src/library/plugin/plugin.c     | 2 +-
- src/library/plugin/plugin_api.c | 3 +--
+ src/library/plugin/plugin_api.c | 2 +-
  src/library/so/main.c           | 2 +-
- 5 files changed, 7 insertions(+), 7 deletions(-)
+ 5 files changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/src/library/CMakeLists.txt b/src/library/CMakeLists.txt
-index 613cd9f..ea0d05b 100644
+index cc20c8854bca..4cc21e97b64b 100644
 --- a/src/library/CMakeLists.txt
 +++ b/src/library/CMakeLists.txt
-@@ -7,8 +7,7 @@ set(LIBRARY_IPC_OS_SPECIFIC "${CMAKE_CURRENT_SOURCE_DIR}/ipc_posix.c" PARENT_SCO
+@@ -7,7 +7,7 @@ set(LIBRARY_IPC_OS_SPECIFIC "${CMAKE_CURRENT_SOURCE_DIR}/ipc_posix.c" PARENT_SCO
  
  if(UNIX AND NOT APPLE)
      add_library(${BOLT_PLUGIN_LIB_NAME} SHARED so/main.c plugin/plugin.c plugin/plugin_api.c gl.c
 -    rwlock/rwlock_posix.c ipc_posix.c plugin/plugin_posix.c ../../modules/hashmap/hashmap.c
--    ../miniz/miniz.c ../sha256/sha256.c)
-+    rwlock/rwlock_posix.c ipc_posix.c plugin/plugin_posix.c ../miniz/miniz.c ../sha256/sha256.c)
++    rwlock/rwlock_posix.c ipc_posix.c plugin/plugin_posix.c
+     ../miniz/miniz.c ../sha256/sha256.c ../../modules/spng/spng/spng.c)
  
      find_package(PkgConfig REQUIRED)
- 
-@@ -18,6 +17,8 @@ if(UNIX AND NOT APPLE)
-     pkg_check_modules(SPNG REQUIRED IMPORTED_TARGET spng)
-     target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC PkgConfig::SPNG)
+@@ -15,6 +15,8 @@ if(UNIX AND NOT APPLE)
+     pkg_check_modules(LUAJIT REQUIRED IMPORTED_TARGET luajit)
+     target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC PkgConfig::LUAJIT)
  
 +    target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC hashmap)
 +
@@ -35,7 +34,7 @@ index 613cd9f..ea0d05b 100644
      install(TARGETS ${BOLT_PLUGIN_LIB_NAME} DESTINATION "${BOLT_LIBDIR}")
  endif()
 diff --git a/src/library/gl.c b/src/library/gl.c
-index c18b222..6a5da9c 100644
+index c18b2226154d..6a5da9cfdf15 100644
 --- a/src/library/gl.c
 +++ b/src/library/gl.c
 @@ -1,8 +1,8 @@
@@ -49,7 +48,7 @@ index c18b222..6a5da9c 100644
  #include <stdio.h>
  #include <stdlib.h>
 diff --git a/src/library/plugin/plugin.c b/src/library/plugin/plugin.c
-index a4cd933..9bddfdf 100644
+index a4cd93386559..9bddfdf312cf 100644
 --- a/src/library/plugin/plugin.c
 +++ b/src/library/plugin/plugin.c
 @@ -3,8 +3,8 @@
@@ -63,21 +62,22 @@ index a4cd933..9bddfdf 100644
  #include <lualib.h>
  #include <stdlib.h>
 diff --git a/src/library/plugin/plugin_api.c b/src/library/plugin/plugin_api.c
-index 0bcc565..fe8d310 100644
+index 5a9f6145aed5..8dec789bd782 100644
 --- a/src/library/plugin/plugin_api.c
 +++ b/src/library/plugin/plugin_api.c
-@@ -3,8 +3,7 @@
+@@ -3,9 +3,9 @@
  #include "lua.h"
  #include "plugin.h"
  
 -#include "../../../modules/hashmap/hashmap.h"
--
+ #include "../../../modules/spng/spng/spng.h"
+ 
 +#include <hashmap.h>
  #include <lauxlib.h>
  #include <math.h>
- #include <spng.h>
+ #include <string.h>
 diff --git a/src/library/so/main.c b/src/library/so/main.c
-index e8c1738..7106b6d 100644
+index e8c17384f7a1..7106b6d783e3 100644
 --- a/src/library/so/main.c
 +++ b/src/library/so/main.c
 @@ -3,6 +3,7 @@

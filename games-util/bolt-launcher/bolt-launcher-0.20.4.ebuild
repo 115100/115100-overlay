@@ -46,12 +46,11 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}/0001-browser-add-popup_id-parameter-to-OnBeforePopup.patch"
-	"${FILESDIR}/0002-cmake-use-system-libfmt.patch"
-	"${FILESDIR}/0003-cmake-use-system-libspng.patch"
-	"${FILESDIR}/0004-cmake-use-system-hashmap.patch"
-	"${FILESDIR}/0005-cmake-use-system-miniz.patch"
-	"${FILESDIR}/0006-cmake-use-system-openssl.patch"
+	"${FILESDIR}/cmake-use-system-hashmap.patch"
+	"${FILESDIR}/cmake-use-system-libfmt.patch"
+	"${FILESDIR}/cmake-use-system-libspng.patch"
+	"${FILESDIR}/cmake-use-system-miniz.patch"
+	"${FILESDIR}/cmake-use-system-openssl.patch"
 )
 
 src_configure() {

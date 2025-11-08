@@ -1,4 +1,4 @@
-From 0bbc46629fb344e71293f5361be503ec4472dbff Mon Sep 17 00:00:00 2001
+From 993e1eb1e2f7cb5662055c2637fc47b109c1e1ea Mon Sep 17 00:00:00 2001
 From: 115100 <git@three-sigma.org>
 Date: Mon, 20 Oct 2025 14:17:42 +0100
 Subject: [PATCH] cmake: use system openssl
@@ -10,7 +10,7 @@ Subject: [PATCH] cmake: use system openssl
  3 files changed, 21 insertions(+), 4 deletions(-)
 
 diff --git a/src/library/CMakeLists.txt b/src/library/CMakeLists.txt
-index 2abb03c..5472f8f 100644
+index 2abb03cc10af..5472f8f6e178 100644
 --- a/src/library/CMakeLists.txt
 +++ b/src/library/CMakeLists.txt
 @@ -7,7 +7,7 @@ set(LIBRARY_IPC_OS_SPECIFIC "${CMAKE_CURRENT_SOURCE_DIR}/ipc_posix.c" PARENT_SCO
@@ -33,7 +33,7 @@ index 2abb03c..5472f8f 100644
      target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC PkgConfig::SPNG)
  
 diff --git a/src/library/plugin/plugin.c b/src/library/plugin/plugin.c
-index 9bddfdf..36e97b4 100644
+index 9bddfdf312cf..36e97b42ca19 100644
 --- a/src/library/plugin/plugin.c
 +++ b/src/library/plugin/plugin.c
 @@ -1,8 +1,13 @@
@@ -78,7 +78,7 @@ index 9bddfdf..36e97b4 100644
          character_hash[i * 2] = u4_to_char((hash[i] >> 4) & 0b1111);
          character_hash[(i * 2) + 1] = u4_to_char(hash[i] & 0b1111);
 diff --git a/src/library/plugin/plugin.h b/src/library/plugin/plugin.h
-index ae80429..c69c136 100644
+index ae80429c3bf8..c69c136c827d 100644
 --- a/src/library/plugin/plugin.h
 +++ b/src/library/plugin/plugin.h
 @@ -8,7 +8,12 @@
