@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit linux-info
+inherit linux-info systemd
 
 DESCRIPTION="TLS handshake utilities for in-kernel TLS consumers"
 HOMEPAGE="https://github.com/oracle/ktls-utils"
@@ -30,5 +30,5 @@ pkg_setup() {
 }
 
 src_configure() {
-	econf $(use_with systemd)
+	econf --with-systemd=$(usex systemd "$(systemd_get_systemunitdir)")
 }
