@@ -7,10 +7,10 @@ LUA_COMPAT=( luajit )
 inherit cmake lua-single
 
 DESCRIPTION="An alternative launcher for your favourite MMO."
-HOMEPAGE="https://github.com/Adamcake/Bolt"
+HOMEPAGE="https://codeberg.com/Adamcake/Bolt"
 
-SRC_URI="https://github.com/Adamcake/Bolt/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
-S="${WORKDIR}/Bolt-${PV}"
+SRC_URI="https://codeberg.org/Adamcake/Bolt/archive/${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/bolt"
 
 LICENSE="AGPL-3"
 SLOT="0"
@@ -20,6 +20,15 @@ IUSE="plugins"
 
 REQUIRED_USE="
 	plugins? ( ${LUA_REQUIRED_USE} )
+"
+
+QA_PRESTRIPPED="
+	opt/${PN}/libEGL.so
+	opt/${PN}/chrome-sandbox
+	opt/${PN}/libcef.so
+	opt/${PN}/libvulkan.so.1
+	opt/${PN}/libvk_swiftshader.so
+	opt/${PN}/libGLESv2.so
 "
 
 COMMON_DEPEND="

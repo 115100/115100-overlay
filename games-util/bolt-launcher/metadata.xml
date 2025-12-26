@@ -10,6 +10,6 @@
 		</flag>
 	</use>
 	<upstream>
-		<remote-id type="github">Adamcake/Bolt</remote-id>
+		<remote-id type="codeberg">Adamcake/Bolt</remote-id>
 	</upstream>
 </pkgmetadata>
