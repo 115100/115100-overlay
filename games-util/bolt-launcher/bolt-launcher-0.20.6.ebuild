@@ -7,7 +7,7 @@ LUA_COMPAT=( luajit )
 inherit cmake lua-single
 
 DESCRIPTION="An alternative launcher for your favourite MMO."
-HOMEPAGE="https://codeberg.com/Adamcake/Bolt"
+HOMEPAGE="https://codeberg.org/Adamcake/Bolt"
 
 SRC_URI="https://codeberg.org/Adamcake/Bolt/archive/${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/bolt"
