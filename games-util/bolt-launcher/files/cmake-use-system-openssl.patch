@@ -1,4 +1,4 @@
-From 993e1eb1e2f7cb5662055c2637fc47b109c1e1ea Mon Sep 17 00:00:00 2001
+From 18832f3cf836f5ee7733f7d71668adcf5cf24a1f Mon Sep 17 00:00:00 2001
 From: 115100 <git@three-sigma.org>
 Date: Mon, 20 Oct 2025 14:17:42 +0100
 Subject: [PATCH] cmake: use system openssl
@@ -33,7 +33,7 @@ index 2abb03cc10af..5472f8f6e178 100644
      target_link_libraries(${BOLT_PLUGIN_LIB_NAME} PUBLIC PkgConfig::SPNG)
  
 diff --git a/src/library/plugin/plugin.c b/src/library/plugin/plugin.c
-index 9bddfdf312cf..36e97b42ca19 100644
+index 0a13e65d6ffe..598473976d93 100644
 --- a/src/library/plugin/plugin.c
 +++ b/src/library/plugin/plugin.c
 @@ -1,8 +1,13 @@
@@ -60,10 +60,10 @@ index 9bddfdf312cf..36e97b42ca19 100644
  
  // called mainly from the input thread - see comment in header for thread-safety observations
  uint64_t _bolt_plugin_get_last_mouseevent_windowid() { return last_mouseevent_window_id; }
-@@ -268,11 +273,15 @@ void _bolt_plugin_init(const struct PluginManagedFunctions* functions) {
+@@ -267,11 +272,15 @@ void _bolt_plugin_init(const struct PluginManagedFunctions* functions) {
+         _bolt_ipc_send(fd, character_id, id_len);
      }
  
-     const char* character_id = getenv("JX_CHARACTER_ID");
 -    SHA256_CTX ctx;
      unsigned char hash[SHA256_BLOCK_SIZE];
 +#if defined(_WIN32)
@@ -78,7 +78,7 @@ index 9bddfdf312cf..36e97b42ca19 100644
          character_hash[i * 2] = u4_to_char((hash[i] >> 4) & 0b1111);
          character_hash[(i * 2) + 1] = u4_to_char(hash[i] & 0b1111);
 diff --git a/src/library/plugin/plugin.h b/src/library/plugin/plugin.h
-index ae80429c3bf8..c69c136c827d 100644
+index 552ad77c7331..99a2889d17c0 100644
 --- a/src/library/plugin/plugin.h
 +++ b/src/library/plugin/plugin.h
 @@ -8,7 +8,12 @@
@@ -95,5 +95,5 @@ index ae80429c3bf8..c69c136c827d 100644
  
  #define GRAB_TYPE_NONE 0
 -- 
-2.51.0
+2.52.0
 
