@@ -15,8 +15,8 @@ DESCRIPTION="A simple framework for embedding Chromium-based browsers in other a
 HOMEPAGE="https://bitbucket.org/chromiumembedded/cef"
 
 # Grab from https://cef-builds.spotifycdn.com/index.html#linux64
-CEF_HASH="30cb3bd"
-CHROMIUM_VERSION="143.0.7499.170"
+CEF_HASH="9f739aa"
+CHROMIUM_VERSION="144.0.7559.133"
 CEF_VERSION="${PV}+g${CEF_HASH}+chromium-${CHROMIUM_VERSION}"
 SRC_URI="
 	amd64? ( https://cef-builds.spotifycdn.com/cef_binary_${CEF_VERSION}_linux64_minimal.tar.bz2 -> ${P}.amd64.tar.bz2 )
