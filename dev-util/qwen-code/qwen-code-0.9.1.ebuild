@@ -26,7 +26,6 @@ src_compile() {
 
 src_install() {
 	insinto /usr/$(get_libdir)/node_modules/@${PN}/${PN}
-	doins *.sb
 	doins -r locales
 	insopts -m0755
 	doins cli.js
